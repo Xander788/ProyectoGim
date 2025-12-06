@@ -9,13 +9,13 @@ package Modelo;
  * @author Jorge
  */
 public class Clase {
-    private int id;
+    private String id;
     private String tipo;
     private String horario;
     private int capacidadMaxima;
     private int idEntrenador;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -35,7 +35,7 @@ public class Clase {
         return idEntrenador;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -55,7 +55,7 @@ public class Clase {
         this.idEntrenador = idEntrenador;
     }
 
-    public Clase(int id, String tipo, String horario, int capacidadMaxima, int idEntrenador) {
+    public Clase(String id, String tipo, String horario, int capacidadMaxima, int idEntrenador) {
         this.id = id;
         this.tipo = tipo;
         this.horario = horario;
