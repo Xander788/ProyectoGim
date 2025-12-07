@@ -21,7 +21,7 @@ public class RepositorioClase implements IRepositorioClase {
 
     @Override
     public void guardar(Clase c) {
-        data.put(c.getId(), c);
+       data.put(String.valueOf(c.getId()), c);
     }
 
     @Override

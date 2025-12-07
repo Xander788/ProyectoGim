@@ -9,7 +9,7 @@ package DTO;
  * @author Jorge
  */
 public class ClaseDTO {
-     private int id;
+    private int id;
     private String tipo;
     private String horario;
     private int capacidadMaxima;
