@@ -63,7 +63,14 @@ LocalDate limite = LocalDate.now().plusDays(dias);
     @Override
     public void actualizar(Cliente cliente) {
 // falta crear esta parte de aca 
+Cliente existente = buscarCedula(cliente.getCedula());
+        if (existente != null) {
+            clientesDB.remove(existente);
+            clientesDB.add(cliente);
+        }
+
     }
+    
 
     @Override
     public void eliminar(String cedula) {
