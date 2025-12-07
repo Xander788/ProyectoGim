@@ -4,10 +4,29 @@
  */
 package DAO;
 
+import Modelo.Cliente;
+import java.util.List;
+
 /**
  *
  * @author danny
  */
 public interface ClienteDao {
-    
+
+    Cliente buscarCedula(String cedula);
+
+    List<Cliente> listartodos();
+
+    List<Cliente> buscarPorNombre(String nombre);
+
+    List<Cliente> buscarPorMembresia(String membresia);
+
+    List<Cliente> buscarPorVencimientoProximo(int dias);
+
+    void crear(Cliente cliente);
+
+    void actualizar(Cliente cliente);
+
+    void eliminar(String cedula);
+
 }
