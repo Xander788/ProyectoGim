@@ -63,10 +63,8 @@ public class UsuarioDAO implements IUsuarioDAO {
         String sql = "SELECT id, nombre_usuario, contrasena, rol FROM usuario WHERE nombre_usuario = ? AND contrasena = ?";
 
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
-
             ps.setString(1, nombreUsuario);
             ps.setString(2, contrasena);
-
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Roles rol = rs.getString("rol") != null

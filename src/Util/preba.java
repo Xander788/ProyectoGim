@@ -4,14 +4,11 @@
  */
 package Util;
 
-
-import DAO.EntrenadorDAO;
-import DAO.UsuarioDAO;
-import DTO.EntrenadorDTO;
-import DTO.UsuarioDTO;
-import static Modelo.Roles.ENTRENADOR;
-import java.time.LocalDate;
-
+import DAO.ClaseDAO;
+import DTO.ClaseDTO;
+import Modelo.Clase;
+import Modelo.ServicioClase;
+import Modelo.ServicioEntrenador;
 
 /**
  *
@@ -23,10 +20,7 @@ public class preba {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        LocalDate fechaSQL=LocalDate.parse("2025-12-07");
-        UsuarioDAO repo = new UsuarioDAO();
-        UsuarioDTO cli = new UsuarioDTO(1,"farid","contraseña",ENTRENADOR);
-        repo.obtenerTodas();
-        
+        ServicioEntrenador servicio = new ServicioEntrenador();
+        System.out.println(servicio.eliminar(8));
     }
 }
