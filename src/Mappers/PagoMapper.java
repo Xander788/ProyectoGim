@@ -15,9 +15,8 @@ public class PagoMapper{
 
 
     public Object ToDto(Pago ent) {
-        return new PagoDTO(ent.getId(),ent.getId(),ent.getFecha());
+        return new PagoDTO(ent.getId(),ent.getIdCliente(),ent.getFecha());
     }
-
 
     public Object ToEntidad(PagoDTO dto) {
    Pago p = new Pago( dto.getId(),dto.getIdCliente(),dto.getFecha(), 0.0 );

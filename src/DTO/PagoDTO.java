@@ -4,7 +4,7 @@
  */
 package DTO;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -12,22 +12,24 @@ import java.util.Date;
  */
 public class PagoDTO {
      private int id;
-    private int idCliente;
-    private Date fecha;
+    private String idCliente;
+    private LocalDate fecha;
 
     public int getId() {
         return id;
     }
 
-    public int getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public Date getFecha() {
+   
+
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public PagoDTO(int id, int idCliente, Date fecha) {
+    public PagoDTO(int id, String idCliente, LocalDate fecha) {
         this.id = id;
         this.idCliente = idCliente;
         this.fecha = fecha;

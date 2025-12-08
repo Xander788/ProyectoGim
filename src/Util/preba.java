@@ -5,7 +5,11 @@
 package Util;
 
 import DAO.ClaseDAO;
+import DAO.PagoDAO;
 import DTO.ClaseDTO;
+import DTO.PagoDTO;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -17,8 +21,10 @@ public class preba {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        ClaseDAO repo = new ClaseDAO();
-        ClaseDTO cli = new ClaseDTO(3, "Entrenador", "Viernes", 5);
-        repo.buscarPorTipo("Entrenador");
+        LocalDate fechaSQL=LocalDate.parse("2025-12-07");
+        PagoDAO repo = new PagoDAO();
+        PagoDTO cli = new PagoDTO(1,"12345678910", fechaSQL);
+        repo.listarTodos();
+        
     }
 }
