@@ -24,7 +24,7 @@ public class ClaseDAO implements IClaseDAO {
     private final String password;
 
     public ClaseDAO() {
-        this.url = "jdbc:mysql://localhost:3306/BancoApp?useSSL=false&serverTimezone=UTC";
+        this.url = "jdbc:mysql://localhost:3306/ProyectoGym?useSSL=false&serverTimezone=UTC";
         this.user = "Admin";
         this.password = "Admin123@";
     }

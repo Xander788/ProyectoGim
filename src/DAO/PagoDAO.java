@@ -18,8 +18,7 @@ import java.util.List;
  * @author Jorge
  */
 public class PagoDAO implements IPagoDAO {
-
-    private final String url = "jdbc:mysql://localhost:3306/BancoApp?useSSL=false&serverTimezone=UTC";
+    private final String url = "jdbc:mysql://localhost:3306/ProyectoGym?useSSL=false&serverTimezone=UTC";
     private final String user = "Admin";
     private final String password = "Admin123@";
 
