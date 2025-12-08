@@ -13,6 +13,7 @@ public class ClaseDTO {
     private String tipo;
     private String horario;
     private int capacidadMaxima;
+    private int idEntrenador;
 
     public int getId() {
         return id;
@@ -30,10 +31,16 @@ public class ClaseDTO {
         return capacidadMaxima;
     }
 
-    public ClaseDTO(int id, String tipo, String horario, int capacidadMaxima) {
+    public int getIdEntrenador() {
+        return idEntrenador;
+    }
+    
+
+    public ClaseDTO(int id, String tipo, String horario, int capacidadMaxima,int idEntrenador) {
         this.id = id;
         this.tipo = tipo;
         this.horario = horario;
         this.capacidadMaxima = capacidadMaxima;
+        this.idEntrenador = idEntrenador;
     }
 }

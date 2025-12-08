@@ -69,9 +69,7 @@ public class Clase {
 
         if (capacidadMaxima <= 0)
             throw new Exception("La capacidad debe ser mayor que 0.");
-
-        if (!horario.matches("\\d{2}:\\d{2}-\\d{2}:\\d{2}"))
-            throw new Exception("Formato de horario inválido. Ej: 08:00-09:30.");
+        
     }
     
 }

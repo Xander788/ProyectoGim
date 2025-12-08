@@ -15,7 +15,7 @@ import Modelo.Clase;
 public class ClaseMapper {
     
     public ClaseDTO ToDto(Clase ent) {
-       return new ClaseDTO(ent.getId(),ent.getTipo(), ent.getHorario(), ent.getCapacidadMaxima());
+       return new ClaseDTO(ent.getId(),ent.getTipo(), ent.getHorario(), ent.getCapacidadMaxima(),ent.getIdEntrenador());
     }
     
     public Clase ToEntidad(ClaseDTO dto, int entredanorId) {

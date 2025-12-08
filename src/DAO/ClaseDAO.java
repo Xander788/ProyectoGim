@@ -37,11 +37,12 @@ public class ClaseDAO implements IClaseDAO {
     public void insertar(ClaseDTO dto) throws Exception {
         try {
             Connection cn = getConnection();
-            PreparedStatement ps = cn.prepareStatement("INSERT INTO clase (id, tipo, horario, capacidad) VALUES (?,?,?,?)");
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO clase (id, tipo, horario, capacidad,id_entrenador) VALUES (?,?,?,?)");
             ps.setInt(1, dto.getId());
             ps.setString(2, dto.getTipo());
             ps.setString(3, dto.getHorario());
             ps.setInt(4, dto.getCapacidadMaxima());
+            ps.setInt(5, dto.getIdEntrenador());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error: " + ex);
@@ -50,14 +51,15 @@ public class ClaseDAO implements IClaseDAO {
 
     @Override
     public void actualizar(ClaseDTO dto) throws Exception {
-        String sql = "UPDATE clase SET tipo=?, horario=?, capacidad=? WHERE id=?";
+        String sql = "UPDATE clase SET tipo=?, horario=?, capacidad=?, id_entrenador=? WHERE id=?";
 
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
 
             ps.setString(1, dto.getTipo());
             ps.setString(2, dto.getHorario());
             ps.setInt(3, dto.getCapacidadMaxima());
-            ps.setInt(4, dto.getId());
+            ps.setInt(4,dto.getIdEntrenador());
+            ps.setInt(5, dto.getId());
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -81,7 +83,7 @@ public class ClaseDAO implements IClaseDAO {
 
     @Override
     public ClaseDTO buscar(int id) throws Exception {
-        String sql = "SELECT id, tipo, horario, capacidad FROM clase WHERE id=?";
+        String sql = "SELECT id, tipo, horario, capacidad, id_entrenador FROM clase WHERE id=?";
 
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -91,7 +93,8 @@ public class ClaseDAO implements IClaseDAO {
                         rs.getInt("id"),
                         rs.getString("tipo"),
                         rs.getString("horario"),
-                        rs.getInt("capacidad")
+                        rs.getInt("capacidad"),
+                        rs.getInt("id_entrenador")
                 );
                 return a;
             }
@@ -104,7 +107,7 @@ public class ClaseDAO implements IClaseDAO {
     @Override
     public List<ClaseDTO> obtenerTodas() throws Exception {
         List<ClaseDTO> lista = new ArrayList<>();
-        String sql = "SELECT id, tipo, horario, capacidad FROM clase";
+        String sql = "SELECT id, tipo, horario, capacidad, id_entrenador FROM clase";
 
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
@@ -113,7 +116,8 @@ public class ClaseDAO implements IClaseDAO {
                         rs.getInt("id"),
                         rs.getString("tipo"),
                         rs.getString("horario"),
-                        rs.getInt("capacidad")
+                        rs.getInt("capacidad"),
+                        rs.getInt("id_entrenador")
                 ));
             }
 
@@ -133,7 +137,7 @@ public class ClaseDAO implements IClaseDAO {
             ps.setString(1, tipo);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                lista.add(new ClaseDTO(rs.getInt("id"), rs.getString("tipo"), rs.getString("horario"), rs.getInt("capacidad")));
+                lista.add(new ClaseDTO(rs.getInt("id"), rs.getString("tipo"), rs.getString("horario"), rs.getInt("capacidad"),rs.getInt("id_entrenador")));
             }
         } catch (SQLException ex) {
             System.out.println("Error: " + ex);
