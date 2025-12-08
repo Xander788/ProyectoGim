@@ -32,9 +32,6 @@ public class ServicioPago {
 
     public Pago registrarPago(String idCliente, double subtotal, String formatoFactura) throws Exception {
         Cliente cliente = servicioCliente.buscarPorCedula(idCliente);
-        if (cliente == null) {
-            throw new Exception("Cliente con ID " + idCliente + " no encontrado");
-        }
         LocalDate fechaActual = LocalDate.now(); 
         
         PagoDTO dto = new PagoDTO(0, idCliente, fechaActual,subtotal);  

@@ -28,7 +28,7 @@ public class PagoDAO implements IPagoDAO {
 
     @Override
     public void insertar(PagoDTO pago) throws Exception {
-        String sql = "INSERT INTO pago(id_cliente, fecha) VALUES (?, ?)";
+        String sql = "INSERT INTO pago(id_cliente, fecha,subtotal) VALUES (?, ?, ?)";
 
         try (Connection cn = getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)) {
@@ -42,7 +42,7 @@ public class PagoDAO implements IPagoDAO {
 
     @Override
     public PagoDTO buscar(int id) throws Exception {
-        String sql = "SELECT id, id_cliente, fecha FROM pago WHERE id=?";
+        String sql = "SELECT id, id_cliente, fecha, subtotal FROM pago WHERE id=?";
 
         try (Connection cn = getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)) {
@@ -68,7 +68,7 @@ public class PagoDAO implements IPagoDAO {
 @Override
     public List<PagoDTO> listarPorCliente(String idCliente) throws Exception {
         List<PagoDTO> lista = new ArrayList<>();
-        String sql = "SELECT id, id_cliente, fecha FROM pago WHERE id_cliente=?";
+        String sql = "SELECT id, id_cliente, fecha, subtotal FROM pago WHERE id_cliente=?";
 
         try (Connection cn = getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)) {
