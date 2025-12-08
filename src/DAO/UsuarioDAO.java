@@ -59,26 +59,30 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
     @Override
-    public UsuarioDTO buscar(int id) throws Exception {
-        String sql = "SELECT id, nombre_usuario, contrasena, rol FROM usuario WHERE id=?";
-        try (
-                Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            try (
-                    ResultSet rs = ps.executeQuery()) {
+    public UsuarioDTO buscar(String nombreUsuario, String contrasena) throws Exception {
+        String sql = "SELECT id, nombre_usuario, contrasena, rol FROM usuario WHERE nombre_usuario = ? AND contrasena = ?";
+
+        try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
+
+            ps.setString(1, nombreUsuario);
+            ps.setString(2, contrasena);  // ¡OJO! En producción deberías comparar con hash, no texto plano
+
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Roles rol = rs.getString("rol") != null
-                            ? Roles.valueOf(rs.getString("rol").toUpperCase()) : null;
+                            ? Roles.valueOf(rs.getString("rol").toUpperCase())
+                            : null;
+
                     return new UsuarioDTO(
                             rs.getInt("id"),
                             rs.getString("nombre_usuario"),
-                            rs.getString("contrasena"),
+                            rs.getString("contrasena"), // puedes dejarlo o poner null por seguridad
                             rol
                     );
                 }
             }
         }
-        return null;
+        return null; // No encontrado o credenciales incorrectas
     }
 
     @Override

@@ -18,7 +18,7 @@ public interface IUsuarioDAO {
     
     void eliminar(int id) throws Exception;
     
-    UsuarioDTO buscar(int id) throws Exception;
+    UsuarioDTO buscar(String nombreUsuario, String contrasena) throws Exception;
     
     List<UsuarioDTO> obtenerTodas() throws Exception;
     
