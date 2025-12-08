@@ -4,11 +4,11 @@
  */
 package Util;
 
-import DAO.ClaseDAO;
-import DTO.ClaseDTO;
-import Modelo.Clase;
-import Modelo.ServicioClase;
-import Modelo.ServicioEntrenador;
+import Modelo.Cliente;
+import Modelo.ServicioCliente;
+import Modelo.TiposMembresia;
+import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -20,7 +20,8 @@ public class preba {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        ServicioEntrenador servicio = new ServicioEntrenador();
-        System.out.println(servicio.eliminar(8));
+        Cliente cli = new Cliente("1",LocalDate.of(2025, Month.MARCH, 14),LocalDate.of(2025, Month.MARCH,18),"jorge", "123", TiposMembresia.PREMIUM);
+        ServicioCliente servicio = new ServicioCliente();
+        System.out.println(servicio.membresiaVigente(cli));
     }
 }
