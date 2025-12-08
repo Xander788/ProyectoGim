@@ -54,7 +54,8 @@ public class PagoDAO implements IPagoDAO {
                 return new PagoDTO(
                     rs.getInt("id"),
                     rs.getString("id_cliente"),
-                    rs.getObject("fecha", LocalDate.class)
+                    rs.getObject("fecha", LocalDate.class),
+                    rs.getInt("subtotal")
                 );
             }
 
@@ -79,7 +80,8 @@ public class PagoDAO implements IPagoDAO {
                 lista.add(new PagoDTO(
                     rs.getInt("id"),
                     idCliente,
-                    rs.getObject("fecha", LocalDate.class)
+                    rs.getObject("fecha", LocalDate.class),
+                    rs.getInt("subtotal")
                 ));
             }
 
@@ -93,7 +95,7 @@ public class PagoDAO implements IPagoDAO {
     @Override
     public List<PagoDTO> listarTodos() throws Exception {
         List<PagoDTO> lista = new ArrayList<>();
-        String sql = "SELECT id, id_cliente, fecha FROM pago";
+        String sql = "SELECT id, id_cliente, fecha, subtotal FROM pago";
 
         try (Connection cn = getConnection();
              PreparedStatement ps = cn.prepareStatement(sql);
@@ -103,7 +105,8 @@ public class PagoDAO implements IPagoDAO {
                 lista.add(new PagoDTO(
                     rs.getInt("id"),
                     rs.getString("id_cliente"),
-                    rs.getObject("fecha", LocalDate.class)
+                    rs.getObject("fecha", LocalDate.class),
+                    rs.getDouble("subtotal")
                 ));
             }
 

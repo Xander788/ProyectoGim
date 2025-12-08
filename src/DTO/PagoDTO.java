@@ -11,9 +11,10 @@ import java.time.LocalDate;
  * @author Jorge
  */
 public class PagoDTO {
-     private int id;
+    private int id;
     private String idCliente;
     private LocalDate fecha;
+    private double subtotal;
 
     public int getId() {
         return id;
@@ -23,15 +24,18 @@ public class PagoDTO {
         return idCliente;
     }
 
-   
-
     public LocalDate getFecha() {
         return fecha;
     }
 
-    public PagoDTO(int id, String idCliente, LocalDate fecha) {
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public PagoDTO(int id, String idCliente, LocalDate fecha, double subtotal) {
         this.id = id;
         this.idCliente = idCliente;
         this.fecha = fecha;
+        this.subtotal = subtotal;
     }
 }

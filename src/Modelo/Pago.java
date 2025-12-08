@@ -70,12 +70,11 @@ public class Pago {
         this.idCliente = idCliente;
         this.fecha = fecha;
         this.subtotal = subtotal;
-        this.impuesto = 0.13;
+        this.impuesto = subtotal * 0.13;;
         this.total = calcularTotales();
     }
     
     public double calcularTotales() {
-        impuesto = subtotal * 0.13;
        return  subtotal + impuesto;
     }
 }
