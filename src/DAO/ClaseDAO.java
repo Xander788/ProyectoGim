@@ -25,8 +25,8 @@ public class ClaseDAO implements IClaseDAO {
 
     public ClaseDAO() {
         this.url = "jdbc:mysql://localhost:3306/ProyectoGym?useSSL=false&serverTimezone=UTC";
-        this.user = "Admin";
-        this.password = "Admin123@";
+        this.user = "root";
+        this.password = "Root123@";
     }
 
     private Connection getConnection() throws SQLException {
@@ -35,18 +35,16 @@ public class ClaseDAO implements IClaseDAO {
 
     @Override
     public void insertar(ClaseDTO dto) throws Exception {
-        String sql = "INSERT INTO clase (id, tipo, horario, capacidad) VALUES (?,?,?,?)";
-
-        try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
-
+        try {
+            Connection cn = getConnection();
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO clase (id, tipo, horario, capacidad) VALUES (?,?,?,?)");
             ps.setInt(1, dto.getId());
             ps.setString(2, dto.getTipo());
             ps.setString(3, dto.getHorario());
             ps.setInt(4, dto.getCapacidadMaxima());
             ps.executeUpdate();
-
         } catch (SQLException ex) {
-            System.out.println("Error insertar clase: " + ex);
+            System.out.println("Error: " + ex);
         }
     }
 
@@ -86,23 +84,20 @@ public class ClaseDAO implements IClaseDAO {
         String sql = "SELECT id, tipo, horario, capacidad FROM clase WHERE id=?";
 
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
-
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
-                return new ClaseDTO(
+               ClaseDTO a  =new  ClaseDTO (
                         rs.getInt("id"),
                         rs.getString("tipo"),
                         rs.getString("horario"),
                         rs.getInt("capacidad")
                 );
+                return a;
             }
-
         } catch (SQLException ex) {
             System.out.println("Error buscar clase: " + ex);
         }
-
         return null;
     }
 
@@ -132,26 +127,17 @@ public class ClaseDAO implements IClaseDAO {
     @Override
     public List<ClaseDTO> buscarPorTipo(String tipo) throws Exception {
         List<ClaseDTO> lista = new ArrayList<>();
-        String sql = "SELECT id, tipo, horario, capacidad FROM clase WHERE tipo = ?";
-
-        try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
-
-            ps.setString(1, "%" + tipo + "%");
+        try {
+            Connection cn = getConnection();
+            PreparedStatement ps = cn.prepareStatement("SELECT * FROM clase WHERE tipo=?");
+            ps.setString(1, tipo);
             ResultSet rs = ps.executeQuery();
-
             while (rs.next()) {
-                lista.add(new ClaseDTO(
-                        rs.getInt("id"),
-                        rs.getString("tipo"),
-                        rs.getString("horario"),
-                        rs.getInt("capacidad")
-                ));
+                lista.add(new ClaseDTO(rs.getInt("id"), rs.getString("tipo"), rs.getString("horario"), rs.getInt("capacidad")));
             }
-
         } catch (SQLException ex) {
-            System.out.println("Error buscar por tipo: " + ex);
+            System.out.println("Error: " + ex);
         }
-
         return lista;
     }
 }
