@@ -65,7 +65,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
 
             ps.setString(1, nombreUsuario);
-            ps.setString(2, contrasena);  // ¡OJO! En producción deberías comparar con hash, no texto plano
+            ps.setString(2, contrasena);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -76,13 +76,13 @@ public class UsuarioDAO implements IUsuarioDAO {
                     return new UsuarioDTO(
                             rs.getInt("id"),
                             rs.getString("nombre_usuario"),
-                            rs.getString("contrasena"), // puedes dejarlo o poner null por seguridad
+                            rs.getString("contrasena"),
                             rol
                     );
                 }
             }
         }
-        return null; // No encontrado o credenciales incorrectas
+        return null;
     }
 
     @Override
