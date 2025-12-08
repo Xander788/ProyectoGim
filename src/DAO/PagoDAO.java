@@ -34,6 +34,7 @@ public class PagoDAO implements IPagoDAO {
              PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setString(1, pago.getIdCliente());
             ps.setObject(2,pago.getFecha());
+            ps.setDouble(3, pago.getSubtotal());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error insertar pago: " + ex);
