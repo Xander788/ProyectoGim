@@ -37,7 +37,7 @@ public class ClaseDAO implements IClaseDAO {
     public void insertar(ClaseDTO dto) throws Exception {
         try {
             Connection cn = getConnection();
-            PreparedStatement ps = cn.prepareStatement("INSERT INTO clase (id, tipo, horario, capacidad,id_entrenador) VALUES (?,?,?,?)");
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO clase (id, tipo, horario, capacidad,id_entrenador) VALUES (?,?,?,?,?)");
             ps.setInt(1, dto.getId());
             ps.setString(2, dto.getTipo());
             ps.setString(3, dto.getHorario());
