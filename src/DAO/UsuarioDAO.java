@@ -10,6 +10,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Jorge
+ */
+
 public class UsuarioDAO implements IUsuarioDAO {
 
     private final String url = "jdbc:mysql://localhost:3306/ProyectoGym?useSSL=false&serverTimezone=UTC";
@@ -63,7 +68,7 @@ public class UsuarioDAO implements IUsuarioDAO {
                     ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Roles rol = rs.getString("rol") != null
-                            ? Roles.valueOf(rs.getString("rol")) : null;
+                            ? Roles.valueOf(rs.getString("rol").toUpperCase()) : null;
                     return new UsuarioDTO(
                             rs.getInt("id"),
                             rs.getString("nombre_usuario"),
@@ -83,7 +88,7 @@ public class UsuarioDAO implements IUsuarioDAO {
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Roles rol = rs.getString("rol") != null ? Roles.valueOf(rs.getString("rol")) : null;
+                Roles rol = rs.getString("rol") != null ? Roles.valueOf(rs.getString("rol").toUpperCase()) : null;
                 lista.add(new UsuarioDTO(
                         rs.getInt("id"),
                         rs.getString("nombre_usuario"),

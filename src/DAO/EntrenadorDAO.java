@@ -12,6 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Jorge
+ */
 public class EntrenadorDAO implements IEntrenadorDAO {
     private final String url;
     private final String user;

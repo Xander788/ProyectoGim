@@ -4,10 +4,12 @@
  */
 package Util;
 
-import DAO.ClaseDAO;
-import DAO.PagoDAO;
-import DTO.ClaseDTO;
-import DTO.PagoDTO;
+
+import DAO.EntrenadorDAO;
+import DAO.UsuarioDAO;
+import DTO.EntrenadorDTO;
+import DTO.UsuarioDTO;
+import static Modelo.Roles.ENTRENADOR;
 import java.time.LocalDate;
 
 
@@ -22,9 +24,9 @@ public class preba {
      */
     public static void main(String[] args) throws Exception {
         LocalDate fechaSQL=LocalDate.parse("2025-12-07");
-        PagoDAO repo = new PagoDAO();
-        PagoDTO cli = new PagoDTO(1,"12345678910", fechaSQL);
-        repo.listarTodos();
+        UsuarioDAO repo = new UsuarioDAO();
+        UsuarioDTO cli = new UsuarioDTO(1,"farid","contraseña",ENTRENADOR);
+        repo.obtenerTodas();
         
     }
 }

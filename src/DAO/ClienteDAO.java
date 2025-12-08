@@ -40,7 +40,7 @@ public class ClienteDAO implements IClienteDAO {
     public void insertar(ClienteDTO dto) throws Exception {
         try {
             Connection cn = getConnection();
-            PreparedStatement ps = cn.prepareStatement("INSERT INTO cliente (cedula, fecha_nacimiento, fecha_vencimiento, nombre, contactos, tipo) VALUES (?,?,?,?,?,?)");
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO cliente (id, fecha_nacimiento, fecha_vencimiento, nombre, contactos, tipo) VALUES (?,?,?,?,?,?)");
             ps.setString(1, dto.getCedula());
             ps.setDate(2, dto.getFechaNacimientos() != null ? Date.valueOf(dto.getFechaNacimientos()) : null);
             ps.setDate(3, dto.getFechaVencimiento() != null ? Date.valueOf(dto.getFechaVencimiento()) : null);
@@ -56,24 +56,31 @@ public class ClienteDAO implements IClienteDAO {
 
     @Override
     public void actualizar(ClienteDTO dto) throws Exception {
-        String sql = "UPDATE cliente SET fecha_nacimiento=?, fecha_vencimiento=?, nombre=?, contactos=?, tipo=? WHERE cedula=?";
-        try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
-            ps.setDate(1, dto.getFechaNacimientos() != null ? Date.valueOf(dto.getFechaNacimientos()) : null);
-            ps.setDate(2, dto.getFechaVencimiento() != null ? Date.valueOf(dto.getFechaVencimiento()) : null);
-            ps.setString(3, dto.getNombre());
-            ps.setString(4, dto.getContactos());
-            ps.setString(5, dto.getTipo() != null ? dto.getTipo().name() : null);
-            ps.setString(6, dto.getTipo() != null ? dto.getTipo().name() : null);
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println("Error actualizar cliente: " + ex);
-            throw ex;
+    String sql = "UPDATE cliente SET " + "nombre = ?, " + "fecha_nacimiento = ?, " +"contactos = ?, " + "tipo = ?, " +  "fecha_vencimiento = ? " +"WHERE id = ?";  
+
+    try (Connection cn = getConnection(); 
+         PreparedStatement ps = cn.prepareStatement(sql)) {
+
+        ps.setString(1, dto.getNombre());
+        ps.setDate(2, dto.getFechaNacimientos() != null ? Date.valueOf(dto.getFechaNacimientos()) : null);
+        ps.setString(3, dto.getContactos());
+        ps.setString(4, dto.getTipo() != null ? dto.getTipo().name() : null);
+        ps.setDate(5, dto.getFechaVencimiento() != null ? Date.valueOf(dto.getFechaVencimiento()) : null);
+        ps.setString(6, dto.getCedula());  
+
+        int filas = ps.executeUpdate();
+        if (filas == 0) {
+            System.out.println("No se encontró cliente con cédula: " + dto.getCedula());
         }
+    } catch (SQLException ex) {
+        System.out.println("Error al actualizar cliente: " + ex.getMessage());
+        throw ex;
+    }
     }
 
     @Override
     public void eliminar(String cedula) throws Exception {
-        String sql = "DELETE FROM cliente WHERE cedula=?";
+        String sql = "DELETE FROM cliente WHERE id=?";
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setString(1, cedula);
             ps.executeUpdate();
@@ -85,7 +92,7 @@ public class ClienteDAO implements IClienteDAO {
 
     @Override
     public ClienteDTO buscar(String cedula) throws Exception {
-        String sql = "SELECT cedula, fecha_nacimiento, fecha_vencimiento, nombre, contactos, tipo FROM cliente WHERE cedula=?";
+        String sql = "SELECT id, fecha_nacimiento, fecha_vencimiento, nombre, contactos, tipo FROM cliente WHERE id=?";
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql)) {
             ps.setString(1, cedula);
             ResultSet rs = ps.executeQuery();
@@ -97,7 +104,7 @@ public class ClienteDAO implements IClienteDAO {
                 String tipoStr = rs.getString("tipo");
                 TiposMembresia tipo = tipoStr != null ? TiposMembresia.valueOf(tipoStr) : null;
                 return new ClienteDTO(
-                        rs.getString("cedula"),
+                        rs.getString("id"),
                         fechaNac,
                         fechaVen,
                         rs.getString("nombre"),
@@ -115,23 +122,24 @@ public class ClienteDAO implements IClienteDAO {
     @Override
     public List<ClienteDTO> obtenerTodas() throws Exception {
         List<ClienteDTO> lista = new ArrayList<>();
-        String sql = "SELECT cedula, fecha_nacimiento, fecha_vencimiento, nombre, contactos, tipo FROM cliente";
+        String sql = "SELECT id, fecha_nacimiento, fecha_vencimiento, nombre, contactos, tipo FROM cliente";
         try (Connection cn = getConnection(); PreparedStatement ps = cn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Date fechaNacSql = rs.getDate("fecha_nacimiento");
                 LocalDate fechaNac = fechaNacSql != null ? fechaNacSql.toLocalDate() : null;
                 Date fechaVenSql = rs.getDate("fecha_vencimiento");
                 LocalDate fechaVen = fechaVenSql != null ? fechaVenSql.toLocalDate() : null;
-                String tipoStr = rs.getString("tipo");
+                String tipoStr = rs.getString("tipo").toUpperCase();
                 TiposMembresia tipo = tipoStr != null ? TiposMembresia.valueOf(tipoStr) : null;
                 lista.add(new ClienteDTO(
-                        rs.getString("cedula"),
+                        rs.getString("id"),
                         fechaNac,
                         fechaVen,
                         rs.getString("nombre"),
                         rs.getString("contactos"),
                         tipo
                 ));
+                System.out.println(lista);
             }
         } catch (SQLException ex) {
             System.out.println("Error obtener clientes: " + ex);
