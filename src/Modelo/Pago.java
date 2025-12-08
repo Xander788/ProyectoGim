@@ -58,25 +58,21 @@ public class Pago {
         this.subtotal = subtotal;
     }
 
-    public void setImpuesto(double impuesto) {
-        this.impuesto = impuesto;
-    }
-
     public void setTotal(double total) {
         this.total = total;
     }
 
-    public Pago(int id, int idCliente, Date fecha, double subtotal, double impuesto, double total) {
+    public Pago(int id, int idCliente, Date fecha, double subtotal) {
         this.id = id;
         this.idCliente = idCliente;
         this.fecha = fecha;
         this.subtotal = subtotal;
-        this.impuesto = impuesto;
-        this.total = total;
+        this.impuesto = 0.13;
+        this.total = calcularTotales();
     }
     
-    public void calcularTotales() {
+    public double calcularTotales() {
         impuesto = subtotal * 0.13;
-        total = subtotal + impuesto;
+       return  subtotal + impuesto;
     }
 }

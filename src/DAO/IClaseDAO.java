@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Modelo.Clase;
+import DTO.ClaseDTO;
 import java.util.List;
 
 
@@ -13,15 +13,15 @@ import java.util.List;
  * @author Jorge
  */
 public interface IClaseDAO {
-     void insertar(Clase clase) throws Exception;
+     void insertar(ClaseDTO clase) throws Exception;
 
-    void actualizar(Clase clase) throws Exception;
+    void actualizar(ClaseDTO clase) throws Exception;
 
     void eliminar(int id) throws Exception;
 
-    Clase buscar(int id) throws Exception;
+    ClaseDTO buscar(int id) throws Exception;
 
-    List<Clase> obtenerTodas() throws Exception;
+    List<ClaseDTO> obtenerTodas() throws Exception;
 
-    List<Clase> buscarPorTipo(String tipo) throws Exception;
+    List<ClaseDTO> buscarPorTipo(String tipo) throws Exception;
 }
