@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,8 +13,8 @@ import java.util.Date;
  */
 public class Pago {
      private int id;
-    private int idCliente;
-    private Date fecha;
+    private String idCliente;
+    private LocalDate fecha;
     private double subtotal;
     private double impuesto;
     private double total;
@@ -22,11 +23,11 @@ public class Pago {
         return id;
     }
 
-    public int getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
@@ -46,11 +47,13 @@ public class Pago {
         this.id = id;
     }
 
-    public void setIdCliente(int idCliente) {
+    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 
-    public void setFecha(Date fecha) {
+
+
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -62,7 +65,7 @@ public class Pago {
         this.total = total;
     }
 
-    public Pago(int id, int idCliente, Date fecha, double subtotal) {
+    public Pago(int id, String idCliente, LocalDate fecha, double subtotal) {
         this.id = id;
         this.idCliente = idCliente;
         this.fecha = fecha;

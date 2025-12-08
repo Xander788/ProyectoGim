@@ -16,7 +16,7 @@ public interface IPagoDAO {
 
     PagoDTO buscar(int id) throws Exception;
 
-    List<PagoDTO> listarPorCliente(int idCliente) throws Exception;
+    List<PagoDTO> listarPorCliente(String idCliente) throws Exception;
 
     List<PagoDTO> listarTodos() throws Exception;
 }

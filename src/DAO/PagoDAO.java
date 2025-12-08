@@ -6,11 +6,11 @@ package DAO;
 
 import DTO.PagoDTO;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class PagoDAO implements IPagoDAO {
     private final String url = "jdbc:mysql://localhost:3306/ProyectoGym?useSSL=false&serverTimezone=UTC";
-    private final String user = "Admin";
-    private final String password = "Admin123@";
+    private final String user = "root";
+    private final String password = "Root123@";
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, user, password);
@@ -32,11 +32,9 @@ public class PagoDAO implements IPagoDAO {
 
         try (Connection cn = getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)) {
-
-            ps.setInt(1, pago.getIdCliente());
-            ps.setDate(2, new Date(pago.getFecha().getTime()));
+            ps.setString(1, pago.getIdCliente());
+            ps.setObject(2,pago.getFecha());
             ps.executeUpdate();
-
         } catch (SQLException ex) {
             System.out.println("Error insertar pago: " + ex);
         }
@@ -55,8 +53,8 @@ public class PagoDAO implements IPagoDAO {
             if (rs.next()) {
                 return new PagoDTO(
                     rs.getInt("id"),
-                    rs.getInt("id_cliente"),
-                    rs.getDate("fecha")
+                    rs.getString("id_cliente"),
+                    rs.getObject("fecha", LocalDate.class)
                 );
             }
 
@@ -66,23 +64,22 @@ public class PagoDAO implements IPagoDAO {
 
         return null;
     }
-
-    @Override
-    public List<PagoDTO> listarPorCliente(int idCliente) throws Exception {
+@Override
+    public List<PagoDTO> listarPorCliente(String idCliente) throws Exception {
         List<PagoDTO> lista = new ArrayList<>();
         String sql = "SELECT id, id_cliente, fecha FROM pago WHERE id_cliente=?";
 
         try (Connection cn = getConnection();
              PreparedStatement ps = cn.prepareStatement(sql)) {
 
-            ps.setInt(1, idCliente);
+            ps.setString(1, idCliente);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 lista.add(new PagoDTO(
                     rs.getInt("id"),
                     idCliente,
-                    rs.getDate("fecha")
+                    rs.getObject("fecha", LocalDate.class)
                 ));
             }
 
@@ -105,8 +102,8 @@ public class PagoDAO implements IPagoDAO {
             while (rs.next()) {
                 lista.add(new PagoDTO(
                     rs.getInt("id"),
-                    rs.getInt("id_cliente"),
-                    rs.getDate("fecha")
+                    rs.getString("id_cliente"),
+                    rs.getObject("fecha", LocalDate.class)
                 ));
             }
 
