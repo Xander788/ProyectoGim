@@ -1,42 +1,23 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
 package Modelo;
 
 /**
  *
- * @author danny
+ * @author pxand
  */
-public class Roles {
-    private int id;
-    private String nombre;
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public Roles(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
-    @Override
-    public String toString() {
-        return  nombre ;
-    }
+public enum Roles {
+    ADMINISTRADOR("Administrador"),ENTRENADOR("Entrenador");
     
-    
+    private final String roles;
+
+    private Roles(String roles) {
+        this.roles = roles;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
 }
