@@ -11,12 +11,15 @@ package Vista;
 public class Desktop extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Desktop.class.getName());
-
+    private VistaGim frm;
+    
     /**
      * Creates new form Desktop
      */
     public Desktop() {
         initComponents();
+        this.frm = new VistaGim();
+        jDesktopPane1.add(frm);
     }
 
     /**
@@ -86,10 +89,7 @@ public class Desktop extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VistaGim frm = new VistaGim();
-        jDesktopPane1.add(frm);
         frm.setVisible(true);
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
