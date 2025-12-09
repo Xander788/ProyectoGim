@@ -95,7 +95,6 @@ public class ServicioEntrenador {
     }
     
     public boolean tieneClasesAsignadas(int idEntrenador) throws Exception {
-        
         return servicioClase.obtenerTodas().stream()
                 .anyMatch(c -> c.getIdEntrenador() == idEntrenador);
     }
