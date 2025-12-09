@@ -29,27 +29,12 @@ public class ServicioEntrenador {
     }
     
     public Entrenador registrar(String nombre, String contacto, String especialidad) throws Exception {
-
-        if (nombre == null || nombre.trim().isBlank()) {
-            throw new IllegalArgumentException("El nombre es obligatorio");
-        }
-        if (contacto == null || contacto.trim().isBlank()) {
-            throw new IllegalArgumentException("El contacto es obligatorio");
-        }
-        if (especialidad == null || especialidad.trim().isBlank()) {
-            throw new IllegalArgumentException("La especialidad es obligatoria");
-        }
-
         final String nombreFinal = nombre.trim();
         final String contactoFinal = contacto.trim();
         final String especialidadFinal = especialidad.trim();
 
         boolean existeNombre = entrenadorDAO.obtenerTodas().stream()
                 .anyMatch(e -> e.getNombre().equalsIgnoreCase(nombreFinal));
-
-        if (existeNombre) {
-            throw new Exception("Ya existe un entrenador con el nombre '" + nombreFinal + "'");
-        }
 
         EntrenadorDTO dtoTemporal = new EntrenadorDTO(0, contactoFinal, nombreFinal, especialidadFinal);
         entrenadorDAO.insertar(dtoTemporal);
@@ -58,7 +43,7 @@ public class ServicioEntrenador {
                 .filter(e -> e.getNombre().equalsIgnoreCase(nombreFinal)
                 && e.getContacto().equals(contactoFinal))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Error al recuperar el entrenador creado"));
+                .orElseThrow();
 
         return mapper.ToEntidad(creado);
     }
@@ -66,20 +51,12 @@ public class ServicioEntrenador {
     public void actualizar(int id, String nuevoNombre, String nuevoContacto, String nuevaEspecialidad) throws Exception {
 
         EntrenadorDTO existente = entrenadorDAO.buscar(id);
-        if (existente == null) {
-            throw new Exception("No se encontró entrenador con ID " + id);
-        }
-
         String nombreFinal = (nuevoNombre != null && !nuevoNombre.trim().isBlank()) ? nuevoNombre.trim() : existente.getNombre();
         String contactoFinal = (nuevoContacto != null && !nuevoContacto.trim().isBlank()) ? nuevoContacto.trim() : existente.getContacto();
         String especialidadFinal = (nuevaEspecialidad != null && !nuevaEspecialidad.trim().isBlank()) ? nuevaEspecialidad.trim() : existente.getEspecialidad();
 
         boolean nombreEnUso = entrenadorDAO.obtenerTodas().stream()
                 .anyMatch(e -> e.getNombre().equalsIgnoreCase(nombreFinal) && e.getId() != id);
-        if (nombreEnUso) {
-            throw new Exception("El nombre '" + nombreFinal + "' ya está en uso por otro entrenador");
-        }
-
         EntrenadorDTO dtoActualizado = new EntrenadorDTO(id, contactoFinal, nombreFinal, especialidadFinal);
         entrenadorDAO.actualizar(dtoActualizado);
     }

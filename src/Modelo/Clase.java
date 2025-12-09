@@ -63,13 +63,12 @@ public class Clase {
         this.idEntrenador = idEntrenador;
     }
     
-    public void validar() throws Exception {
-        if (tipo == null || tipo.isBlank())
-            throw new Exception("El tipo de clase es obligatorio.");
-
-        if (capacidadMaxima <= 0)
-            throw new Exception("La capacidad debe ser mayor que 0.");
+    public boolean validar() throws Exception {
+        if (tipo == null || tipo.isBlank()||capacidadMaxima <= 0){
+            return false;
+        }
         
+        return true;
     }
     
 }

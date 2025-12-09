@@ -41,7 +41,7 @@ public class ServicioPago {
         PagoDTO creado = pagoDAO.listarPorCliente(idCliente).stream()
                 .filter(p -> p.getFecha().equals(fechaActual))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Error al recuperar pago creado"));
+                .orElseThrow();
         Pago pagoCompleto = (Pago) mapper.ToEntidad(creado);
         
         int meses = obtenerMesesPorMembresia(cliente.getTipo());
@@ -81,9 +81,7 @@ public class ServicioPago {
             FacturaPDF.generarFactura(pago);
         } else if ("XML".equalsIgnoreCase(formato)) {
             FacturaXML.generarFactura(pago);
-        } else {
-            throw new IllegalArgumentException("Formato de factura inválido: " + formato);
-        }
+        } 
     }
 
     

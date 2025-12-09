@@ -28,17 +28,10 @@ public class ServicioClase {
     }
     
     public Clase registrar(int idManual, String tipo, String horario, int capacidadMaxima, int idEntrenador) throws Exception {
-
-        if (claseDAO.obtenerTodas().stream().anyMatch(c -> c.getId() == idManual)) {
-            throw new Exception("Ya existe una clase con el ID " + idManual);
-        }
-        
-        if (entrenadorDAO.buscar(idEntrenador) == null) {
-            throw new Exception("No existe un entrenador con ID " + idEntrenador);
-        }
-
         Clase clase = new Clase(idManual, tipo.trim(), horario, capacidadMaxima, idEntrenador);
-        clase.validar();
+        if (clase.validar()==false) {
+            return null;
+        }
 
         ClaseDTO dto = new ClaseDTO(idManual, tipo.trim(), horario, capacidadMaxima, idEntrenador);
         claseDAO.insertar(dto);
@@ -49,18 +42,18 @@ public class ServicioClase {
     public void actualizar(int id, String tipo, String horario, int capacidadMaxima, int idEntrenador) throws Exception {
 
         ClaseDTO existente = claseDAO.buscar(id);
-        if (existente == null) throw new Exception("Clase con ID " + id + " no encontrada");
+        if (existente == null){
+            return;
+        }
 
         String tipoFinal = (tipo != null && !tipo.trim().isBlank()) ? tipo.trim() : existente.getTipo();
         int capacidadFinal = capacidadMaxima > 0 ? capacidadMaxima : existente.getCapacidadMaxima();
         int entrenadorFinal = idEntrenador > 0 ? idEntrenador : existente.getIdEntrenador();
 
-        if (idEntrenador > 0 && entrenadorDAO.buscar(idEntrenador) == null) {
-            throw new Exception("El entrenador con ID " + idEntrenador + " no existe");
-        }
-
         Clase claseActualizada = new Clase(id, tipoFinal, horario, capacidadFinal, entrenadorFinal);
-        claseActualizada.validar();
+        if (claseActualizada.validar()==false){
+            return;
+        }
 
         ClaseDTO dto = new ClaseDTO(id, tipoFinal, horario, capacidadFinal, entrenadorFinal);
         claseDAO.actualizar(dto);
@@ -69,7 +62,7 @@ public class ServicioClase {
     
     public void eliminar(int id) throws Exception {
         if (claseDAO.buscar(id) == null) {
-            throw new Exception("No se puede eliminar: clase con ID " + id + " no existe");
+            return;
         }
         claseDAO.eliminar(id);
     }

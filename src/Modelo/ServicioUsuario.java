@@ -27,22 +27,9 @@ public class ServicioUsuario {
 
     public Usuario registrar(int idManual, String nombreUsuario, String contrasenaPlana, Roles rol) throws Exception {
 
-        if (idManual <= 0) throw new IllegalArgumentException("ID debe ser mayor a 0");
-        if (nombreUsuario == null || nombreUsuario.trim().isEmpty())
-            throw new IllegalArgumentException("Nombre de usuario obligatorio");
-        if (contrasenaPlana == null || contrasenaPlana.isEmpty())
-            throw new IllegalArgumentException("Contraseña obligatoria");
-
-        for (UsuarioDTO u : usuarioDAO.obtenerTodas()) {
-            if (u.getId() == idManual)
-                throw new Exception("El ID " + idManual + " ya está en uso");
-        }
-
         String contrasenaEncriptada = encriptarConHashCode(contrasenaPlana);
-
         UsuarioDTO dto = new UsuarioDTO(idManual, nombreUsuario, contrasenaEncriptada, rol);
         usuarioDAO.insertar(dto);
-
         return mapper.ToEntidad(dto);
     }
     
@@ -51,7 +38,6 @@ public class ServicioUsuario {
             if (dto.getNombreUsuario().equals(nombreUsuario)) {
                 String hashAlmacenado = dto.getContrasena();
                 String hashIngresado = encriptarConHashCode(contrasena);
-
                 if (hashAlmacenado.equals(hashIngresado)) {
                     return mapper.ToEntidad(dto);
                 }
