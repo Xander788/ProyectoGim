@@ -41,6 +41,8 @@ public class Clases extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
+        setTitle("Clases");
+
         jLabel1.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ID");
