@@ -4,45 +4,133 @@
  */
 package Controlador;
 
+import Modelo.Roles;
 import Modelo.ServicioUsuario;
 import Modelo.Usuario;
+import Vista.IVista;
 import java.util.List;
 
 /**
  *
  * @author pxand
  */
-public class ControladorUsuario {
-    private final ServicioUsuario usuario;
+public class ControladorUsuario implements IVista{
+    private final ServicioUsuario servicio;
+    private final IVista vista;
 
-    public ControladorUsuario(ServicioUsuario usuario) {
-        this.usuario = new ServicioUsuario();
+    public ControladorUsuario(ServicioUsuario servicio, IVista vista) {
+        this.servicio = servicio;
+        this.vista = vista;   
     }
     
-    private Usuario registrar(){
-        
-        return null;
+    private void registrar(int id, String nombreUsuario, String contrasenaPlana, Roles rol) throws Exception{
+        servicio.registrar(id, nombreUsuario, contrasenaPlana, rol);
+        vista.mostrarMensaje("Usuario registrado exitosamente.", "Registro");
+        vista.deshabilitarCampos();
+  
+    }
+    
+    public void buscar(int id){
+        try {
+            Usuario usuario = servicio.obtenerTodos().stream()
+                    .filter(u -> u.getId() == id)
+                    .findFirst()
+                    .orElse(null);
+            if (usuario != null) {
+                vista.mostrarDatos(usuario);
+                vista.deshabilitarCampos();
+            } else {
+                vista.mostrarError("Usuario no encontrado");
+            }
+        } catch (Exception ex) {
+            vista.mostrarError(ex.getMessage());
+        }
+    }
+    
+    public void actualizar(int id, String nuevoNombre, String nuevaContrasena, Roles nuevoRol){
+        try {
+            servicio.actualizar(id, nuevoNombre, nuevaContrasena, nuevoRol);
+            vista.mostrarMensaje("Usuario actualizado correctamente", "Éxito");
+            vista.deshabilitarCampos();
+        } catch (Exception ex) {
+            vista.mostrarError(ex.getMessage());
+        }
+    }
+    
+    public void eliminar(int id){
+        try {
+            if (vista.confirmar("¿Seguro que desea eliminar este usuario?", "Confirmar eliminación")) {
+                servicio.eliminar(id);
+                vista.limpiar();
+            }
+        } catch (Exception ex) {
+            vista.mostrarError(ex.getMessage());
+        }
+    }
+    
+    public List<Usuario> obtenerTodos() throws Exception{
+        return servicio.obtenerTodos();
         
     }
     
-    public Usuario login(){
-        
-        return null;
-        
+    public boolean login(String nombreUsuario, String contrasenaPlana) {
+        try {
+            Usuario usuario = servicio.login(nombreUsuario, contrasenaPlana);
+            if (usuario != null) {
+                return true;
+            } else {
+                vista.mostrarError("Usuario o contraseña incorrectos");
+                return false;
+            }
+        } catch (Exception ex) {
+            vista.mostrarError("Error en el sistema: " + ex.getMessage());
+            return false;
+        }
     }
-    
-    public void actualizar(){
-        
+
+    @Override
+    public void limpiar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public void eliminar(){
-        
+
+    @Override
+    public void cambiarEstadoCampos(boolean estado) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public List<Usuario> obtenerTodos(){
-        
-        return null;
-        
+
+    @Override
+    public void habilitarCampos() {
+        IVista.super.habilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public void deshabilitarCampos() {
+        IVista.super.deshabilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public void mostrarDatos(Object entidad) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean confirmar(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarMensaje(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarError(String msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String solicitar(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
             

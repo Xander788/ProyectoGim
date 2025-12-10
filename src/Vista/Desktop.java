@@ -4,6 +4,11 @@
  */
 package Vista;
 
+
+import Controlador.ControladorUsuario;
+
+import Modelo.ServicioUsuario;
+
 /**
  *
  * @author pxand
@@ -12,14 +17,26 @@ public class Desktop extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Desktop.class.getName());
     private VistaGim frm;
+    private Login login;
+    
+    private final ServicioUsuario servicioUsuario;              
+    private final ControladorUsuario ctrlUsuario; 
     
     /**
      * Creates new form Desktop
      */
     public Desktop() {
         initComponents();
-        this.frm = new VistaGim();
+        
+        servicioUsuario = new ServicioUsuario(); 
+
+        this.login = new Login(this,true);
+        ctrlUsuario= new ControladorUsuario(servicioUsuario,login);
+        login.recibir(ctrlUsuario);
+        
+        frm = new VistaGim(servicioUsuario);
         jDesktopPane1.add(frm);
+        
     }
 
     /**
@@ -32,17 +49,17 @@ public class Desktop extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
+        GestionGym = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ProyectoProgra2");
         setMinimumSize(new java.awt.Dimension(1045, 600));
 
-        jButton1.setText("GG");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        GestionGym.setText("GG");
+        GestionGym.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                GestionGymActionPerformed(evt);
             }
         });
 
@@ -50,7 +67,7 @@ public class Desktop extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Gestion Gimnacio");
 
-        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(GestionGym, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -60,7 +77,7 @@ public class Desktop extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GestionGym, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(890, Short.MAX_VALUE))
         );
@@ -68,7 +85,7 @@ public class Desktop extends javax.swing.JFrame {
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GestionGym, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addContainerGap(477, Short.MAX_VALUE))
@@ -88,9 +105,12 @@ public class Desktop extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        frm.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void GestionGymActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionGymActionPerformed
+        login.setVisible(true);
+        if (login.isLoginExitoso()) {
+            frm.setVisible(true);
+        }
+    }//GEN-LAST:event_GestionGymActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,8 +138,10 @@ public class Desktop extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton GestionGym;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -4,6 +4,17 @@
  */
 package Vista;
 
+import Controlador.ControladorClase;
+import Controlador.ControladorCliente;
+import Controlador.ControladorEntrenador;
+import Controlador.ControladorPago;
+import Controlador.ControladorUsuario;
+import Modelo.ServicioClase;
+import Modelo.ServicioCliente;
+import Modelo.ServicioEntrenador;
+import Modelo.ServicioPago;
+import Modelo.ServicioUsuario;
+
 /**
  *
  * @author pxand
@@ -14,11 +25,36 @@ public class VistaGim extends javax.swing.JInternalFrame {
     private Pagos pagos;
     private Clases clases;
     private Entrenador entrenadores;
+    
+    private ServicioUsuario servicioUsuario;
+    private ServicioCliente servicioCliente;
+    private ServicioEntrenador servicioEntrenador;
+    private ServicioPago servicioPago;
+    private ServicioClase servicioClase;
+            
+    private ControladorUsuario ctrlUsuario;
+    private ControladorCliente ctrlCliente;
+    private ControladorEntrenador Entrenador;
+    private ControladorPago ctrlPago;
+    private ControladorClase ctrlClase;
+    
     /**
      * Creates new form VistaGim
      */
-    public VistaGim() {
+    public VistaGim(ServicioUsuario servicioUsuario) {
         initComponents();
+        
+        ctrlCliente = new ControladorCliente(servicioCliente, clientes);
+        Entrenador = new ControladorEntrenador(servicioEntrenador, entrenadores);
+        ctrlPago = new ControladorPago(servicioPago,pagos);
+        ctrlClase = new ControladorClase(servicioClase, clases); 
+        
+        this.usuarios = new Usuarios(ctrlUsuario);
+        this.clientes = new Clientes(ctrlCliente);
+        this.pagos = new Pagos(ctrlPago);
+        this.clases = new Clases(ctrlClase);
+        this.entrenadores = new Entrenador(Entrenador);
+        
         jDesktopPane1.add(usuarios);
         jDesktopPane1.add(clientes);
         jDesktopPane1.add(pagos);
@@ -195,7 +231,8 @@ public class VistaGim extends javax.swing.JInternalFrame {
     private void ClasesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClasesBtnActionPerformed
         clases.setVisible(true);
     }//GEN-LAST:event_ClasesBtnActionPerformed
-
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ClasesBtn;

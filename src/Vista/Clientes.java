@@ -4,17 +4,20 @@
  */
 package Vista;
 
+import Controlador.ControladorCliente;
+
 /**
  *
  * @author pxand
  */
-public class Clientes extends javax.swing.JInternalFrame {
-
+public class Clientes extends javax.swing.JInternalFrame implements IVista {
+    ControladorCliente ctrlCliente;
     /**
-     * Creates new form Clientes
+     * Creates new form 
      */
-    public Clientes() {
+    public Clientes(ControladorCliente ctrlCliente) {
         initComponents();
+        this.ctrlCliente = ctrlCliente;
     }
 
     /**
@@ -46,6 +49,7 @@ public class Clientes extends javax.swing.JInternalFrame {
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
+        setTitle("Clientes");
 
         AnadirBtn.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
         AnadirBtn.setText("Anadir");
@@ -221,7 +225,7 @@ public class Clientes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AnadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirBtnActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
@@ -275,4 +279,49 @@ public class Clientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void limpiar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void cambiarEstadoCampos(boolean estado) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void habilitarCampos() {
+        IVista.super.habilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public void deshabilitarCampos() {
+        IVista.super.deshabilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public void mostrarDatos(Object entidad) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean confirmar(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarMensaje(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarError(String msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String solicitar(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

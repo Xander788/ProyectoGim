@@ -4,17 +4,20 @@
  */
 package Vista;
 
+import Controlador.ControladorUsuario;
+
 /**
  *
  * @author pxand
  */
-public class Usuarios extends javax.swing.JInternalFrame {
-
+public class Usuarios extends javax.swing.JInternalFrame implements IVista {
+    ControladorUsuario ctrlUsuario;
     /**
      * Creates new form Usuarios
      */
-    public Usuarios() {
+    public Usuarios(ControladorUsuario ctrlUsuario) {
         initComponents();
+        this.ctrlUsuario = ctrlUsuario;
     }
 
     /**
@@ -36,11 +39,12 @@ public class Usuarios extends javax.swing.JInternalFrame {
         AnadirBtn = new javax.swing.JButton();
         EliminarBtn = new javax.swing.JButton();
         BuscarBtn = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        ModificarBtn = new javax.swing.JButton();
         RolesCombo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(102, 153, 255));
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setTitle("Usuarios");
         setMinimumSize(new java.awt.Dimension(628, 194));
@@ -96,11 +100,11 @@ public class Usuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
-        jButton3.setText("Modificar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        ModificarBtn.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        ModificarBtn.setText("Modificar");
+        ModificarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                ModificarBtnActionPerformed(evt);
             }
         });
 
@@ -125,7 +129,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(AnadirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
+                        .addComponent(ModificarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -170,7 +174,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(EliminarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ModificarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BuscarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(AnadirBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -191,9 +195,9 @@ public class Usuarios extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void ContrasenatxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContrasenatxtActionPerformed
         // TODO add your handling code here
@@ -206,12 +210,57 @@ public class Usuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField Contrasenatxt;
     private javax.swing.JButton EliminarBtn;
     private javax.swing.JTextField IDtxt;
+    private javax.swing.JButton ModificarBtn;
     private javax.swing.JComboBox<String> RolesCombo;
     private javax.swing.JTextField Usuariotxt;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void limpiar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void cambiarEstadoCampos(boolean estado) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void habilitarCampos() {
+        IVista.super.habilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public void deshabilitarCampos() {
+        IVista.super.deshabilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public void mostrarDatos(Object entidad) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean confirmar(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarMensaje(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarError(String msg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String solicitar(String msg, String titulo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
