@@ -52,6 +52,26 @@ public class Cliente {
         return tipo;
     }
 
+    public void setFechaNacimientos(LocalDate fechaNacimientos) {
+        this.fechaNacimientos = fechaNacimientos;
+    }
+
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setContactos(String contactos) {
+        this.contactos = contactos;
+    }
+
+    public void setTipo(TiposMembresia tipo) {
+        this.tipo = tipo;
+    }
+
     @Override
     public String toString() {
         return nombre + " "+ cedula ;

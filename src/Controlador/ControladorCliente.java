@@ -6,7 +6,9 @@ package Controlador;
 
 import Modelo.Cliente;
 import Modelo.ServicioCliente;
+import Modelo.TiposMembresia;
 import Vista.IVista;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -14,53 +16,102 @@ import java.util.List;
  * @author pxand
  */
 public class ControladorCliente implements IVista{
-    private final ServicioCliente cliente;
+    private final ServicioCliente servicio;
     private final IVista vista;
 
-    public ControladorCliente(ServicioCliente servicioCliente,IVista vista ) {
-        this.cliente = new ServicioCliente();
+    public ControladorCliente(ServicioCliente servicio,IVista vista ) {
+        this.servicio = servicio;
         this.vista = vista;
     }
     
-    private void registrar() {
+    public void registrar(String cedula, LocalDate fechaNacimiento, LocalDate fechaVencimiento, String nombre, String contacto, TiposMembresia tipo) throws Exception {
+        if (cedula == null || cedula.isBlank()) {
+            throw new Exception("La cédula es requerida");
+        }
+        if (nombre == null || nombre.isBlank()) {
+            throw new Exception("El nombre es requerido");
+        }
+        if (fechaNacimiento == null || fechaNacimiento.isAfter(LocalDate.now())) {
+            throw new Exception("Fecha de nacimiento inválida");
+        }
+        if (fechaVencimiento == null || fechaVencimiento.isBefore(LocalDate.now())) {
+            throw new Exception("Fecha de vencimiento inválida");
+        }
         
+        
+                
+        servicio.registrar(cedula,nombre,contacto,fechaNacimiento,fechaVencimiento,tipo);
     }
     
     
-    private void actualizar(){
+    public void actualizar(String cedula, LocalDate fechaNacimiento, LocalDate fechaVencimiento, String nombre, String contacto, TiposMembresia tipo) throws Exception{
+        Cliente existente = servicio.buscarPorCedula(cedula);
+        if (existente == null) {
+            throw new Exception("Cliente no encontrado");
+        }
+        
+        
+        existente.setFechaNacimientos(fechaNacimiento != null ? fechaNacimiento : existente.getFechaNacimientos());
+        existente.setNombre(nombre != null && !nombre.isBlank() ? nombre : existente.getNombre());
+        existente.setContactos(contacto != null && !contacto.isBlank() ? contacto : existente.getContactos());
+        existente.setTipo(tipo != null ? tipo : existente.getTipo());
+        
+        servicio.actualizar(existente.getCedula(), existente.getNombre(),existente.getContactos(),existente.getFechaNacimientos(),existente.getFechaVencimiento(),existente.getTipo());
+    }
+    
+    public void eliminar(String cedula) throws Exception{
+        if (cedula == null || cedula.isBlank()) {
+            throw new Exception("La cédula es requerida");
+        }
+        
+        Cliente cli = servicio.buscarPorCedula(cedula);
+        if (cli == null) {
+            throw new Exception("Cliente no encontrado");
+        }
+        
+        if (!vista.confirmar("¿Está seguro de eliminar el cliente " + cli.getNombre() + "?", "Confirmar eliminación")) {
+            return;
+        }
+        
+        servicio.eliminar(cedula);
         
     }
     
-    private void eliminar(){
+    public Cliente buscarPorCedula(String cedula) throws Exception{
+        if (cedula == null || cedula.isBlank()) {
+            throw new Exception("La cédula es requerida");
+        }
         
-    }
-    
-    private Cliente buscarPorCedula(){
+        return servicio.buscarPorCedula(cedula);
+        
 
-        return null;
-
     }
     
-    private List<Cliente> obtenerTodos(){
-        
-        return null;
+    private List<Cliente> obtenerTodos() throws Exception{
+        return servicio.obtenerTodos();
         
     }
     
-    private boolean membresiaVigente(Cliente cli){
+    private boolean membresiaVigente(Cliente cli) throws Exception{
+        String cedula = cli.getCedula();
         
-        return false;
+        
+        cli = servicio.buscarPorCedula(cedula);
+        if (cli == null) {
+            throw new Exception("Cliente no encontrado");
+        }
+        return servicio.membresiaVigente(cli);
         
     }
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.limpiar();
     }
 
     @Override
     public void cambiarEstadoCampos(boolean estado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.cambiarEstadoCampos(estado);
     }
 
     @Override
@@ -80,22 +131,22 @@ public class ControladorCliente implements IVista{
 
     @Override
     public boolean confirmar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return vista.confirmar(msg, titulo);
     }
 
     @Override
     public void mostrarMensaje(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.mostrarError(msg);
     }
 
     @Override
     public void mostrarError(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.mostrarError(msg);
     }
 
     @Override
     public String solicitar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return vista.solicitar(msg, titulo);
     }
             
 }

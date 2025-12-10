@@ -5,19 +5,23 @@
 package Vista;
 
 import Controlador.ControladorUsuario;
+import Modelo.Roles;
+import Modelo.ServicioUsuario;
+import Modelo.Usuario;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author pxand
  */
-public class Usuarios extends javax.swing.JInternalFrame implements IVista {
+public class Usuarios extends javax.swing.JInternalFrame implements IVista<Usuario> {
     ControladorUsuario ctrlUsuario;
     /**
      * Creates new form Usuarios
      */
-    public Usuarios(ControladorUsuario ctrlUsuario) {
+    public Usuarios(ServicioUsuario servicioUsuario) {
         initComponents();
-        this.ctrlUsuario = ctrlUsuario;
+        this.ctrlUsuario = new ControladorUsuario(servicioUsuario,this);
     }
 
     /**
@@ -184,11 +188,43 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AnadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            int id = Integer.valueOf(IDtxt.getText().trim());
+            String usuario = Usuariotxt.getText().trim();
+            String contraseña = new String(Contrasenatxt.getText()).trim();
+            Roles rol =  Roles.valueOf(RolesCombo.getSelectedItem().toString().toUpperCase());
+
+            if (usuario.isEmpty() || contraseña.isEmpty()) {
+                this.mostrarError("Usuario y contraseña son obligatorios");
+                return;
+            }
+
+            ctrlUsuario.registrar(id, usuario, contraseña, rol);
+            limpiar();
+        } catch (Exception ex) {
+            this.mostrarError(ex.getMessage());
+        }
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void EliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            String textoId = IDtxt.getText().trim();
+            if (textoId.isEmpty()) {
+                this.mostrarError("Ingrese el ID a eliminar");
+                return;
+            }
+            int id = Integer.parseInt(textoId);
+
+            if (this.confirmar("¿Seguro que desea eliminar este usuario?", "Confirmar eliminación")) {
+                ctrlUsuario.eliminar(id);
+                this.mostrarMensaje("Usuario eliminado", "Éxito");
+                limpiar();
+            }
+        } catch (NumberFormatException ex) {
+            this.mostrarError("ID debe ser numérico");
+        } catch (Exception ex) {
+            this.mostrarError(ex.getMessage());
+        }
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
@@ -196,7 +232,29 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista {
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            String textoId = IDtxt.getText().trim();
+            if (textoId.isEmpty()) {
+                this.mostrarError("Primero busque un usuario para modificar");
+                return;
+            }
+            int id = Integer.parseInt(textoId);
+
+            String nuevoUsuario = Usuariotxt.getText().trim();
+            if (nuevoUsuario.isEmpty()) nuevoUsuario = null;
+
+            String nuevaContra = new String(Contrasenatxt.getText()).trim();
+            if (nuevaContra.isEmpty()) nuevaContra = null;
+
+            Roles nuevorol =  Roles.valueOf(RolesCombo.getSelectedItem().toString().toUpperCase());
+
+            ctrlUsuario.actualizar(id, nuevoUsuario, nuevaContra, nuevorol);
+            this.mostrarMensaje("Usuario modificado correctamente", "Éxito");
+        } catch (NumberFormatException ex) {
+            this.mostrarError("ID inválido");
+        } catch (Exception ex) {
+            this.mostrarError(ex.getMessage());
+        }
     }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void ContrasenatxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContrasenatxtActionPerformed
@@ -221,12 +279,17 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista {
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        IDtxt.setText("");
+        Usuariotxt.setText("");
+        Contrasenatxt.setText("");
+        RolesCombo.setSelectedIndex(0);
     }
 
     @Override
     public void cambiarEstadoCampos(boolean estado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Usuariotxt.setEnabled(estado);
+        Contrasenatxt.setEnabled(estado);
+        RolesCombo.setEnabled(estado);
     }
 
     @Override
@@ -240,27 +303,32 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista {
     }
 
     @Override
-    public void mostrarDatos(Object entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mostrarDatos(Usuario usuario) {
+        if (usuario instanceof Modelo.Usuario u) {
+            IDtxt.setText(String.valueOf(u.getId()));
+            Usuariotxt.setText(u.getNombreUsuario());
+            Contrasenatxt.setText(""); 
+            RolesCombo.setSelectedItem(u.getRol());
+        }
     }
 
     @Override
     public boolean confirmar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return JOptionPane.showConfirmDialog(this, msg, titulo,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
     @Override
     public void mostrarMensaje(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void mostrarError(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public String solicitar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return JOptionPane.showInputDialog(this, msg, titulo, JOptionPane.QUESTION_MESSAGE);
     }
 }

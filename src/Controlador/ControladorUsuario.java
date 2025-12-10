@@ -23,10 +23,8 @@ public class ControladorUsuario implements IVista{
         this.vista = vista;   
     }
     
-    private void registrar(int id, String nombreUsuario, String contrasenaPlana, Roles rol) throws Exception{
+    public void registrar(int id, String nombreUsuario, String contrasenaPlana, Roles rol) throws Exception{
         servicio.registrar(id, nombreUsuario, contrasenaPlana, rol);
-        vista.mostrarMensaje("Usuario registrado exitosamente.", "Registro");
-        vista.deshabilitarCampos();
   
     }
     

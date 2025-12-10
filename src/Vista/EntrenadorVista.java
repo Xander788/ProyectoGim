@@ -5,19 +5,28 @@
 package Vista;
 
 import Controlador.ControladorEntrenador;
+import Modelo.Entrenador;
+import Modelo.ServicioEntrenador;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author pxand
  */
-public class Entrenador extends javax.swing.JInternalFrame implements IVista {
-    ControladorEntrenador entrenador;
+public class EntrenadorVista extends javax.swing.JInternalFrame implements IVista<Entrenador> {
+    private ControladorEntrenador controlador;
     /**
      * Creates new form Entrenador
      */
-    public Entrenador(ControladorEntrenador Entrenador) {
+    
+    
+    public EntrenadorVista() {
         initComponents();
-        this.entrenador = Entrenador;
+    }
+
+    public EntrenadorVista(ServicioEntrenador servicio) {
+        this();
+        controlador = new ControladorEntrenador(servicio,this);
     }
 
     /**
@@ -63,6 +72,7 @@ public class Entrenador extends javax.swing.JInternalFrame implements IVista {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Especialidad");
 
+        IDtxt.setEditable(false);
         IDtxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
         IDtxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         IDtxt.addActionListener(new java.awt.event.ActionListener() {
@@ -136,9 +146,9 @@ public class Entrenador extends javax.swing.JInternalFrame implements IVista {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(IDtxt)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                            .addComponent(IDtxt))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Contactotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -206,15 +216,50 @@ public class Entrenador extends javax.swing.JInternalFrame implements IVista {
     }//GEN-LAST:event_EspecialidadtxtActionPerformed
 
     private void AnadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirBtnActionPerformed
-        // TODO add your handling code here:
+        String nombre = Nombretxt.getText();
+        String contacto = Contactotxt.getText();
+        String especialidad = Especialidadtxt.getText();
+        try {
+            controlador.registrar(nombre, contacto, especialidad);
+        } catch (Exception e) {
+            this.mostrarError("Error al añadir: " + e.getMessage());
+        }
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
-        // TODO add your handling code here:
+        String idStr = IDtxt.getText();
+        if (idStr.isEmpty()) {
+            mostrarError("Ingrese el ID para modificar");
+            return;
+        }
+        int id = Integer.parseInt(idStr);
+        String nuevoNombre = Nombretxt.getText();
+        String nuevoContacto = Contactotxt.getText();
+        String nuevaEspecialidad = Especialidadtxt.getText();
+        try {
+            controlador.actualizar(id, nuevoNombre, nuevoContacto, nuevaEspecialidad);
+        } catch (Exception e) {
+            this.mostrarError("Error al modificar: " + e.getMessage());
+        }
     }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void EliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBtnActionPerformed
-        // TODO add your handling code here:
+        String idStr = IDtxt.getText();
+        if (idStr.isEmpty()) {
+            this.mostrarError("Ingrese el ID para eliminar");
+            return;
+        }
+        int id = Integer.parseInt(idStr);
+        try {
+            if (confirmar("¿Eliminar entrenador ID " + id + "?", "Confirmar")) {
+                boolean eliminado = controlador.eliminar(id);
+                if (eliminado) {
+                    limpiar();
+                }
+            }
+        } catch (Exception e) {
+            this.mostrarError("Error al eliminar: " + e.getMessage());
+        }
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
@@ -239,46 +284,43 @@ public class Entrenador extends javax.swing.JInternalFrame implements IVista {
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        IDtxt.setText("");
+        Contactotxt.setText("");
+        Nombretxt.setText("");
+        Especialidadtxt.setText("");
     }
 
     @Override
     public void cambiarEstadoCampos(boolean estado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        IDtxt.setEnabled(estado);
+        Contactotxt.setEnabled(estado);
+        Nombretxt.setEnabled(estado);
+        Especialidadtxt.setEnabled(estado);
     }
 
-    @Override
-    public void habilitarCampos() {
-        IVista.super.habilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
-    @Override
-    public void deshabilitarCampos() {
-        IVista.super.deshabilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
-    @Override
-    public void mostrarDatos(Object entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public boolean confirmar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return JOptionPane.showConfirmDialog(this, msg, titulo, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
     @Override
     public void mostrarMensaje(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void mostrarError(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public String solicitar(String msg, String titulo) {
+        return JOptionPane.showInputDialog(this, msg, titulo, JOptionPane.QUESTION_MESSAGE);
+    }
+
+    @Override
+    public void mostrarDatos(Entrenador entrenador) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

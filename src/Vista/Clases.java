@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.ControladorClase;
+import Modelo.ServicioClase;
 
 /**
  *
@@ -15,9 +16,9 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
     /**
      * Creates new form Clases
      */
-    public Clases(ControladorClase ctrlClase) {
+    public Clases(ServicioClase servicioClase) {
         initComponents();
-        this.ctrlClase = ctrlClase;
+        this.ctrlClase = new ControladorClase(servicioClase,this);
     }
 
     /**

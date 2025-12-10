@@ -30,10 +30,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jLabel1" pref="70" max="32767" attributes="0"/>
                           <Component id="IDtxt" max="32767" attributes="0"/>
-                          <Component id="jLabel1" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="Contactotxt" min="-2" pref="185" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" pref="182" max="-2" attributes="0"/>
@@ -133,6 +133,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="IDtxt">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Rockwell Extra Bold" size="14" style="1"/>
         </Property>

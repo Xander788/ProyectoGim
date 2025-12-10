@@ -4,11 +4,7 @@
  */
 package Vista;
 
-import Controlador.ControladorClase;
-import Controlador.ControladorCliente;
-import Controlador.ControladorEntrenador;
-import Controlador.ControladorPago;
-import Controlador.ControladorUsuario;
+
 import Modelo.ServicioClase;
 import Modelo.ServicioCliente;
 import Modelo.ServicioEntrenador;
@@ -24,36 +20,30 @@ public class VistaGim extends javax.swing.JInternalFrame {
     private Clientes clientes;
     private Pagos pagos;
     private Clases clases;
-    private Entrenador entrenadores;
+    private EntrenadorVista entrenadores;
     
-    private ServicioUsuario servicioUsuario;
-    private ServicioCliente servicioCliente;
     private ServicioEntrenador servicioEntrenador;
     private ServicioPago servicioPago;
     private ServicioClase servicioClase;
+    private ServicioCliente servicioCliente;
             
-    private ControladorUsuario ctrlUsuario;
-    private ControladorCliente ctrlCliente;
-    private ControladorEntrenador Entrenador;
-    private ControladorPago ctrlPago;
-    private ControladorClase ctrlClase;
+    
     
     /**
      * Creates new form VistaGim
      */
     public VistaGim(ServicioUsuario servicioUsuario) {
         initComponents();
+        servicioEntrenador= new ServicioEntrenador();
+        servicioPago = new ServicioPago();
+        servicioClase = new ServicioClase();
+        servicioCliente= new ServicioCliente();
         
-        ctrlCliente = new ControladorCliente(servicioCliente, clientes);
-        Entrenador = new ControladorEntrenador(servicioEntrenador, entrenadores);
-        ctrlPago = new ControladorPago(servicioPago,pagos);
-        ctrlClase = new ControladorClase(servicioClase, clases); 
-        
-        this.usuarios = new Usuarios(ctrlUsuario);
-        this.clientes = new Clientes(ctrlCliente);
-        this.pagos = new Pagos(ctrlPago);
-        this.clases = new Clases(ctrlClase);
-        this.entrenadores = new Entrenador(Entrenador);
+        this.usuarios = new Usuarios(servicioUsuario);
+        this.clientes = new Clientes(servicioCliente);
+        this.pagos = new Pagos(servicioPago);
+        this.clases = new Clases(servicioClase);
+        this.entrenadores = new EntrenadorVista(servicioEntrenador);
         
         jDesktopPane1.add(usuarios);
         jDesktopPane1.add(clientes);

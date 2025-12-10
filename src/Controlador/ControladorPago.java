@@ -18,7 +18,7 @@ public class ControladorPago implements IVista{
     private final IVista vista;
 
     public ControladorPago(ServicioPago Pago, IVista vista) {
-        this.Pago = new ServicioPago();
+        this.Pago = Pago;
         this.vista = vista;
     }
     

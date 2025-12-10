@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.ControladorPago;
+import Modelo.ServicioPago;
 
 /**
  *
@@ -15,9 +16,9 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista {
     /**
      * Creates new form Pagos
      */
-    public Pagos(ControladorPago ctrlPago) {
+    public Pagos(ServicioPago servicio) {
         initComponents();
-        this.ctrlPago = ctrlPago;
+        this.ctrlPago = new ControladorPago(servicio,this);
     }
 
     /**

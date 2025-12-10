@@ -18,7 +18,7 @@ public class ControladorClase implements IVista{
     private final IVista vista;
 
     public ControladorClase(ServicioClase clase, IVista vista) {
-        this.clase = new ServicioClase();
+        this.clase = clase;
         this.vista = vista;
     }
 

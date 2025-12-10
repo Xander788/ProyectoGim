@@ -5,6 +5,13 @@
 package Vista;
 
 import Controlador.ControladorCliente;
+import Modelo.Cliente;
+import Modelo.ServicioCliente;
+import Modelo.TiposMembresia;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +22,9 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
     /**
      * Creates new form 
      */
-    public Clientes(ControladorCliente ctrlCliente) {
+    public Clientes(ServicioCliente servicioCliente) {
         initComponents();
-        this.ctrlCliente = ctrlCliente;
+        this.ctrlCliente = new ControladorCliente(servicioCliente,this);
     }
 
     /**
@@ -33,7 +40,6 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
         ModificarBtn = new javax.swing.JButton();
         EliminarBtn = new javax.swing.JButton();
         BuscarBtn = new javax.swing.JButton();
-        Nacimientotxt = new javax.swing.JFormattedTextField();
         Cedulatxt = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Nombretxt = new javax.swing.JTextField();
@@ -44,7 +50,8 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
         jLabel5 = new javax.swing.JLabel();
         ComboMembresia = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        Vencimiento = new javax.swing.JFormattedTextField();
+        Nacimientotxt = new javax.swing.JTextField();
+        Vencimientotxt = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -80,14 +87,6 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
         BuscarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BuscarBtnActionPerformed(evt);
-            }
-        });
-
-        Nacimientotxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Nacimientotxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 12)); // NOI18N
-        Nacimientotxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NacimientotxtActionPerformed(evt);
             }
         });
 
@@ -140,14 +139,22 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
 
         jLabel6.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Fecha Nacimiento");
+        jLabel6.setText("Fecha Vencimiento");
 
-        Vencimiento.setEditable(false);
-        Vencimiento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Vencimiento.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 12)); // NOI18N
-        Vencimiento.addActionListener(new java.awt.event.ActionListener() {
+        Nacimientotxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        Nacimientotxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Nacimientotxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VencimientoActionPerformed(evt);
+                NacimientotxtActionPerformed(evt);
+            }
+        });
+
+        Vencimientotxt.setEditable(false);
+        Vencimientotxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        Vencimientotxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Vencimientotxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VencimientotxtActionPerformed(evt);
             }
         });
 
@@ -157,34 +164,34 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(AnadirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ModificarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(EliminarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BuscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(AnadirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ModificarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(EliminarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BuscarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Contactotxt)
-                            .addComponent(Cedulatxt)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Nombretxt)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboMembresia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Nacimientotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(Contactotxt)
+                    .addComponent(Cedulatxt)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Nombretxt)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ComboMembresia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Nacimientotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Vencimientotxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -197,10 +204,10 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Cedulatxt)
+                    .addComponent(Cedulatxt, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Nombretxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Nacimientotxt, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)))
+                        .addComponent(Nacimientotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -210,7 +217,7 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Contactotxt, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(Vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Vencimientotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboMembresia))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -225,24 +232,69 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AnadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirBtnActionPerformed
-       
+       try {
+            String cedula = Cedulatxt.getText().trim();
+            String nombre = Nombretxt.getText().trim();
+            String contacto = Contactotxt.getText().trim();
+            String fechaNacStr = Nacimientotxt.getText().trim();
+            String fechaVenStr = Vencimientotxt.getText().trim();
+            TiposMembresia tipo = TiposMembresia.valueOf(ComboMembresia.getSelectedItem().toString().toUpperCase());
+
+            LocalDate fechaNacimiento = LocalDate.parse(fechaNacStr, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            LocalDate fechaVencimiento = LocalDate.now();
+
+            ctrlCliente.registrar(cedula, fechaNacimiento, fechaVencimiento, nombre, contacto, tipo);
+            limpiar();
+        } catch (DateTimeParseException e) {
+            this.mostrarError("Formato de fecha inválido. Usa yyyy/MM/dd");
+        } catch (Exception e) {
+            this.mostrarError(e.getMessage());
+        }
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            String cedula = Cedulatxt.getText().trim();
+            if (cedula.isBlank()) {
+                return;
+            }
+
+            String nombre = Nombretxt.getText().trim().isEmpty() ? null : Nombretxt.getText().trim();
+            String contacto = Contactotxt.getText().trim().isEmpty() ? null : Contactotxt.getText().trim();
+            LocalDate fechaNac = Nacimientotxt.getText().trim().isEmpty() ? null : 
+                    LocalDate.parse(Nacimientotxt.getText().trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            LocalDate fechaVen = LocalDate.now();
+            TiposMembresia tipo = ComboMembresia.getSelectedIndex() == 0 ? null : 
+                    TiposMembresia.valueOf(ComboMembresia.getSelectedItem().toString().toUpperCase());
+
+            ctrlCliente.actualizar(cedula, fechaNac, fechaVen, nombre, contacto, tipo);
+            this.mostrarMensaje("Cliente modificado correctamente", "Éxito");
+        } catch (DateTimeParseException e) {
+            this.mostrarError("Formato de fecha inválido. Usa yyyy/MM/dd");
+        } catch (Exception e) {
+            this.mostrarError(e.getMessage());
+        }
     }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void EliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            String cedula = Cedulatxt.getText().trim();
+            if (cedula.isBlank()) {
+                this.mostrarError("Ingresa la cédula del cliente a eliminar");
+                return;
+            }
+
+            ctrlCliente.eliminar(cedula);
+            this.mostrarMensaje("Cliente eliminado correctamente", "Éxito");
+            limpiar();
+        } catch (Exception e) {
+            this.mostrarError(e.getMessage());
+        }
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_BuscarBtnActionPerformed
-
-    private void NacimientotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NacimientotxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NacimientotxtActionPerformed
 
     private void NombretxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombretxtActionPerformed
         // TODO add your handling code here:
@@ -256,9 +308,13 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
         // TODO add your handling code here:
     }//GEN-LAST:event_ContactotxtActionPerformed
 
-    private void VencimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VencimientoActionPerformed
+    private void NacimientotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NacimientotxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_VencimientoActionPerformed
+    }//GEN-LAST:event_NacimientotxtActionPerformed
+
+    private void VencimientotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VencimientotxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VencimientotxtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -269,9 +325,9 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
     private javax.swing.JTextField Contactotxt;
     private javax.swing.JButton EliminarBtn;
     private javax.swing.JButton ModificarBtn;
-    private javax.swing.JFormattedTextField Nacimientotxt;
+    private javax.swing.JTextField Nacimientotxt;
     private javax.swing.JTextField Nombretxt;
-    private javax.swing.JFormattedTextField Vencimiento;
+    private javax.swing.JTextField Vencimientotxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -282,12 +338,22 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Cedulatxt.setText("");
+        Nombretxt.setText("");
+        Contactotxt.setText("");
+        Nacimientotxt.setText("");
+        Vencimientotxt.setText("");
+        ComboMembresia.setSelectedIndex(0);
     }
 
     @Override
     public void cambiarEstadoCampos(boolean estado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Cedulatxt.setEnabled(estado);
+        Nombretxt.setEnabled(estado);
+        Contactotxt.setEnabled(estado);
+        Nacimientotxt.setEnabled(estado);
+        Vencimientotxt.setEnabled(estado);
+        ComboMembresia.setEnabled(estado);
     }
 
     @Override
@@ -307,21 +373,22 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
 
     @Override
     public boolean confirmar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return JOptionPane.showConfirmDialog(this, msg, titulo, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
     @Override
     public void mostrarMensaje(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void mostrarError(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public String solicitar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return JOptionPane.showInputDialog(this, msg, titulo, JOptionPane.QUESTION_MESSAGE);
     }
+    
 }
