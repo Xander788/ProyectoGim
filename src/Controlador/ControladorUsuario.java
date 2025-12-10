@@ -36,7 +36,6 @@ public class ControladorUsuario implements IVista{
                     .orElse(null);
             if (usuario != null) {
                 vista.mostrarDatos(usuario);
-                vista.deshabilitarCampos();
             } else {
                 vista.mostrarError("Usuario no encontrado");
             }
@@ -49,7 +48,6 @@ public class ControladorUsuario implements IVista{
         try {
             servicio.actualizar(id, nuevoNombre, nuevaContrasena, nuevoRol);
             vista.mostrarMensaje("Usuario actualizado correctamente", "Éxito");
-            vista.deshabilitarCampos();
         } catch (Exception ex) {
             vista.mostrarError(ex.getMessage());
         }
@@ -88,7 +86,7 @@ public class ControladorUsuario implements IVista{
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.limpiar();
     }
 
     @Override
@@ -108,27 +106,27 @@ public class ControladorUsuario implements IVista{
 
     @Override
     public void mostrarDatos(Object entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.mostrarDatos(entidad);
     }
 
     @Override
     public boolean confirmar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return vista.confirmar(msg, titulo);
     }
 
     @Override
     public void mostrarMensaje(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.mostrarMensaje(msg, titulo);
     }
 
     @Override
     public void mostrarError(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.mostrarError(msg);
     }
 
     @Override
     public String solicitar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return vista.solicitar(msg, titulo);
     }
     
             

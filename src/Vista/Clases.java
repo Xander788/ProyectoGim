@@ -6,6 +6,7 @@ package Vista;
 
 import Controlador.ControladorClase;
 import Modelo.ServicioClase;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,15 +36,15 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        IDtxt = new javax.swing.JTextField();
+        Tipotxt = new javax.swing.JTextField();
+        Capacidadtxt = new javax.swing.JTextField();
+        IDentrenadortxt = new javax.swing.JTextField();
         AnadirBtn = new javax.swing.JButton();
         ModificarBtn = new javax.swing.JButton();
         EliminarBtn = new javax.swing.JButton();
         BuscarBtn = new javax.swing.JButton();
+        Horariotxt = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -70,42 +71,35 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("ID Entrenador");
 
-        jTextField1.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        IDtxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        IDtxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        IDtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                IDtxtActionPerformed(evt);
             }
         });
 
-        jTextField3.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        Tipotxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        Tipotxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Tipotxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                TipotxtActionPerformed(evt);
             }
         });
 
-        jTextField4.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
-        jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        Capacidadtxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        Capacidadtxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Capacidadtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                CapacidadtxtActionPerformed(evt);
             }
         });
 
-        jTextField5.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
-        jTextField5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        IDentrenadortxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        IDentrenadortxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        IDentrenadortxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
-
-        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                IDentrenadortxtActionPerformed(evt);
             }
         });
 
@@ -141,6 +135,14 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
             }
         });
 
+        Horariotxt.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        Horariotxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Horariotxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HorariotxtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,26 +154,27 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                    .addComponent(IDtxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Horariotxt)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(IDentrenadortxt, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Tipotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(34, 34, 34)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Capacidadtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
@@ -195,17 +198,17 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(IDtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IDentrenadortxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Horariotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Tipotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Capacidadtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AnadirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,68 +222,119 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void IDtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDtxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_IDtxtActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void TipotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipotxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_TipotxtActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void CapacidadtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CapacidadtxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_CapacidadtxtActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void IDentrenadortxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDentrenadortxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_IDentrenadortxtActionPerformed
 
     private void AnadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            int id = Integer.valueOf(IDtxt.getText().trim());
+            String tipo = Tipotxt.getText().trim();
+            String horario = Horariotxt.getText().trim();
+            String capacidadStr = Capacidadtxt.getText().trim();
+            int capacidad = Integer.parseInt(capacidadStr);
+            int idEntrenador = Integer.parseInt(IDentrenadortxt.getText().trim());
+            ctrlClase.registrar(id, tipo, horario, capacidad, idEntrenador);
+            limpiar();
+        } catch (NumberFormatException e) {
+            this.mostrarError("Capacidad debe ser un número entero válido");
+        } catch (Exception e) {
+            this.mostrarError(e.getMessage());
+        }
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            String idStr = IDtxt.getText().trim();
+            if (idStr.isBlank()) {
+                mostrarError("Debe buscar una clase primero");
+                return;
+            }
+            int id = Integer.parseInt(idStr);
+
+            String tipo = Tipotxt.getText().trim().isEmpty() ? null : Tipotxt.getText().trim();
+            String horario = Horariotxt.getText().trim().isEmpty() ? null : Horariotxt.getText().trim();
+            Integer capacidad = Capacidadtxt.getText().trim().isEmpty() ? null : Integer.parseInt(Capacidadtxt.getText().trim());
+            int idEntrenador = Integer.parseInt(IDentrenadortxt.getText().trim());
+
+            ctrlClase.actualizar(id, tipo, horario, capacidad, idEntrenador);
+        } catch (NumberFormatException e) {
+            this.mostrarError("Capacidad o ID inválido");
+        } catch (Exception e) {
+            this.mostrarError(e.getMessage());
+        }
     }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void EliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            String idStr = IDtxt.getText().trim();
+            if (idStr.isBlank()) {
+                mostrarError("Ingresa el ID para eliminar");
+                return;
+            }
+            int id = Integer.parseInt(idStr);
+            ctrlClase.eliminar(id);
+            limpiar();
+        } catch (NumberFormatException e) {
+            this.mostrarError("ID debe ser un número entero");
+        } catch (Exception e) {
+            this.mostrarError(e.getMessage());
+        }
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
+    private void HorariotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorariotxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HorariotxtActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AnadirBtn;
     private javax.swing.JButton BuscarBtn;
+    private javax.swing.JTextField Capacidadtxt;
     private javax.swing.JButton EliminarBtn;
+    private javax.swing.JTextField Horariotxt;
+    private javax.swing.JTextField IDentrenadortxt;
+    private javax.swing.JTextField IDtxt;
     private javax.swing.JButton ModificarBtn;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JTextField Tipotxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        IDtxt.setText("");
+        Tipotxt.setText("");
+        Horariotxt.setText("");
+        Capacidadtxt.setText("");
+        IDentrenadortxt.setText("");
     }
 
     @Override
     public void cambiarEstadoCampos(boolean estado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Tipotxt.setEnabled(estado);
+        Horariotxt.setEnabled(estado);
+        Capacidadtxt.setEnabled(estado);
+        IDentrenadortxt.setEnabled(estado);
     }
 
     @Override
@@ -294,27 +348,27 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
     }
 
     @Override
-    public void mostrarDatos(Object entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public boolean confirmar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return JOptionPane.showConfirmDialog(this, msg, titulo,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
     @Override
     public void mostrarMensaje(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void mostrarError(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public String solicitar(String msg, String titulo) {
+        return JOptionPane.showInputDialog(this, msg, titulo, JOptionPane.QUESTION_MESSAGE);
+    }
+
+    @Override
+    public void mostrarDatos(Object entidad) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

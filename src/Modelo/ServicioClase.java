@@ -27,16 +27,16 @@ public class ServicioClase {
         this.mapper = new ClaseMapper();
     }
     
-    public Clase registrar(int idManual, String tipo, String horario, int capacidadMaxima, int idEntrenador) throws Exception {
+    public void registrar(int idManual, String tipo, String horario, int capacidadMaxima, int idEntrenador) throws Exception {
         Clase clase = new Clase(idManual, tipo.trim(), horario, capacidadMaxima, idEntrenador);
         if (clase.validar()==false) {
-            return null;
+            return ;
         }
 
         ClaseDTO dto = new ClaseDTO(idManual, tipo.trim(), horario, capacidadMaxima, idEntrenador);
         claseDAO.insertar(dto);
 
-        return clase;
+        
     }
 
     public void actualizar(int id, String tipo, String horario, int capacidadMaxima, int idEntrenador) throws Exception {
@@ -74,15 +74,6 @@ public class ServicioClase {
                 .collect(Collectors.toList());
     }
 
-    
-    public List<Clase> buscarPorTipo(String tipo) throws Exception {
-        if (tipo == null || tipo.trim().isBlank()) {
-            return obtenerTodas();
-        }
-        return claseDAO.buscarPorTipo(tipo.trim()).stream()
-                .map(dto -> mapper.ToEntidad(dto, dto.getIdEntrenador()))
-                .collect(Collectors.toList());
-    }
 
     
     public Clase buscarPorId(int id) throws Exception {

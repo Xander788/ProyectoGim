@@ -7,6 +7,7 @@ package Controlador;
 import Modelo.Pago;
 import Modelo.ServicioPago;
 import Vista.IVista;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -14,17 +15,24 @@ import java.util.List;
  * @author pxand
  */
 public class ControladorPago implements IVista{
-    private final ServicioPago Pago;
+    private final ServicioPago servicio;
     private final IVista vista;
 
-    public ControladorPago(ServicioPago Pago, IVista vista) {
-        this.Pago = Pago;
+    public ControladorPago(ServicioPago servicio, IVista vista) {
+        this.servicio = servicio;
         this.vista = vista;
     }
     
-    private Pago registrarPago(){
-        
-        return null;
+    public void registrarPago(String idCliente, double subtotal,String formatofactura) throws Exception{
+        if (idCliente == null || idCliente.isBlank()) {
+            throw new Exception("El ID del cliente es obligatorio");
+        }
+        if (subtotal <= 0) {
+            throw new Exception("El subtotal debe ser mayor a 0");
+        }
+
+        servicio.registrarPago(idCliente,subtotal,formatofactura);
+        vista.mostrarMensaje("Pago registrado correctamente", "Éxito");
         
     }
     

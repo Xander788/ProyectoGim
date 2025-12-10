@@ -14,94 +14,104 @@ import java.util.List;
  * @author pxand
  */
 public class ControladorClase implements IVista{
-    private final ServicioClase clase;
+    private final ServicioClase servicio;
     private final IVista vista;
 
-    public ControladorClase(ServicioClase clase, IVista vista) {
-        this.clase = clase;
+    public ControladorClase(ServicioClase servicio, IVista vista) {
+        this.servicio = servicio;
         this.vista = vista;
     }
 
-    public Clase registrar() {
+    public void registrar(int id, String tipo, String horario, int capacidadMaxima, int idEntrenador) throws Exception {
+        if (tipo == null || tipo.isBlank()) {
+            throw new Exception("El tipo de clase es obligatorio");
+        }
+        if (horario == null || horario.isBlank()) {
+            throw new Exception("El horario es obligatorio");
+        }
+        if (capacidadMaxima <= 0) {
+            throw new Exception("La capacidad máxima debe ser mayor a 0");
+        }
+        if (idEntrenador <= 0) {
+            throw new Exception("Debe seleccionar un entrenador válido");
+        }
 
-        return null;
+        
+        servicio.registrar(id, tipo, horario, capacidadMaxima, idEntrenador);
+        vista.mostrarMensaje("Clase registrada correctamente", "Éxito");
+    }
+
+    public void actualizar(int id, String tipo, String horario, Integer capacidadMaxima, Integer idEntrenador) throws Exception {
+        Clase existente = servicio.buscarPorId(id);
+        if (existente == null) {
+            throw new Exception("Clase no encontrada");
+        }
+
+        String tipoFinal = (tipo != null && !tipo.isBlank()) ? tipo : existente.getTipo();
+        String horarioFinal = (horario != null && !horario.isBlank()) ? horario : existente.getHorario();
+        int capacidadFinal = (capacidadMaxima != null && capacidadMaxima > 0) ? capacidadMaxima : existente.getCapacidadMaxima();
+        int entrenadorFinal = (idEntrenador != null && idEntrenador > 0) ? idEntrenador : existente.getIdEntrenador();
+
+        servicio.actualizar(id, tipoFinal, horarioFinal, capacidadFinal, entrenadorFinal);
+        vista.mostrarMensaje("Clase actualizada correctamente", "Éxito");
+    }
+
+    public void eliminar(int id) throws Exception {
+        if (vista.confirmar("¿Seguro que desea eliminar esta clase?", "Confirmar eliminación")) {
+            servicio.eliminar(id);
+            vista.mostrarMensaje("Clase eliminada correctamente", "Éxito");
+        }
+    }
+
+    public List<Clase> obtenerTodas() throws Exception {
+
+        return servicio.obtenerTodas();
 
     }
 
-    public void actualizar() {
 
+    public Clase buscarPorId(int id) throws Exception {
+        Clase clase = servicio.buscarPorId(id);
+        if (clase == null) {
+            vista.mostrarMensaje("Clase no encontrada", "Búsqueda");
+            return null;
+        }
+        return clase;
     }
 
-    public void eliminar() {
-
-    }
-
-    public List<Clase> obtenerTodas() {
-
-        return null;
-
-    }
-
-    public List<Clase> buscarPorTipo(String tipo) {
-
-        return null;
-
-    }
-
-    public Clase buscarPorId(int id) {
-
-        return null;
-
-    }
-
-    public int obtenerSiguienteId() {
-
-        return 0;
-
-    }
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.limpiar();
     }
 
     @Override
     public void cambiarEstadoCampos(boolean estado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void habilitarCampos() {
-        IVista.super.habilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
-    @Override
-    public void deshabilitarCampos() {
-        IVista.super.deshabilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        vista.cambiarEstadoCampos(estado);
     }
 
     @Override
     public void mostrarDatos(Object entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.mostrarDatos(entidad);
     }
 
     @Override
     public boolean confirmar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return vista.confirmar(msg, titulo);
     }
 
     @Override
     public void mostrarMensaje(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.mostrarMensaje(msg, titulo);
     }
 
     @Override
     public void mostrarError(String msg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        vista.mostrarError(msg);
     }
 
     @Override
     public String solicitar(String msg, String titulo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return vista.solicitar(msg, titulo);
     }
 }
