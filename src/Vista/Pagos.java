@@ -242,6 +242,7 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista<Pago> {
         try {
             ctrlPago.registrarPago(idcliente,subtotal,formatoFactura);
         } catch (Exception ex) {
+            this.mostrarError("Rellene todos los campos");
             System.getLogger(Pagos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         limpiar();
