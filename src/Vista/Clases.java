@@ -253,7 +253,7 @@ public class Clases extends javax.swing.JInternalFrame implements IVista<Clase> 
             ctrlClase.registrar(id, tipo, horario, capacidad, idEntrenador);
             limpiar();
         } catch (NumberFormatException e) {
-            this.mostrarError("Capacidad debe ser un número entero válido");
+            this.mostrarError("Rellene todos los datos");
         } catch (Exception e) {
             this.mostrarError(e.getMessage());
         }

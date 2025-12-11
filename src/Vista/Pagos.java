@@ -231,12 +231,14 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista<Pago> {
     }//GEN-LAST:event_TotaltxtActionPerformed
 
     private void AnadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirBtnActionPerformed
+        if (IDclientetxt.getText().isBlank()||Subtotaltxt.getText().isBlank()) {
+            return;
+        }
+        
         String idcliente = IDclientetxt.getText().trim();
         Double subtotal = Double.valueOf(Subtotaltxt.getText().trim());
         String formatoFactura = jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
-        if (idcliente.isBlank()||subtotal.isNaN()) {
-            return;
-        }
+        
         try {
             ctrlPago.registrarPago(idcliente,subtotal,formatoFactura);
         } catch (Exception ex) {
