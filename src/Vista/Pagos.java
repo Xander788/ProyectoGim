@@ -240,7 +240,7 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista<Pago> {
             System.getLogger(Pagos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             System.out.println("diai si");
         }
-        
+        limpiar();
         
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
@@ -256,7 +256,6 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista<Pago> {
         if (!(seleccionado == null)) {
            mostrarDatos(seleccionado); 
         }
-        
         
     }//GEN-LAST:event_BuscarBtnActionPerformed
 

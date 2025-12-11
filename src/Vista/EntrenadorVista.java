@@ -224,6 +224,7 @@ public class EntrenadorVista extends javax.swing.JInternalFrame implements IVist
         } catch (Exception e) {
             this.mostrarError("Error al añadir: " + e.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
@@ -241,6 +242,7 @@ public class EntrenadorVista extends javax.swing.JInternalFrame implements IVist
         } catch (Exception e) {
             this.mostrarError("Error al modificar: " + e.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void EliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBtnActionPerformed
@@ -260,6 +262,7 @@ public class EntrenadorVista extends javax.swing.JInternalFrame implements IVist
         } catch (Exception e) {
             this.mostrarError("Error al eliminar: " + e.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed

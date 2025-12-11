@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.ControladorClase;
+import Modelo.Clase;
 import Modelo.ServicioClase;
 import javax.swing.JOptionPane;
 
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author pxand
  */
-public class Clases extends javax.swing.JInternalFrame implements IVista {
+public class Clases extends javax.swing.JInternalFrame implements IVista<Clase> {
     ControladorClase ctrlClase;
     /**
      * Creates new form Clases
@@ -253,6 +254,7 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
         } catch (Exception e) {
             this.mostrarError(e.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
@@ -275,6 +277,7 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
         } catch (Exception e) {
             this.mostrarError(e.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void EliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBtnActionPerformed
@@ -292,10 +295,22 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
         } catch (Exception e) {
             this.mostrarError(e.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        // TODO add your handling code here:
+        BusquedaClases dialog = new BusquedaClases(null, true);
+        try {
+            dialog.setControlador(ctrlClase);
+        } catch (Exception ex) {
+            System.getLogger(Clases.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        dialog.setVisible(true);
+
+        Clase seleccionada = dialog.getClaseSeleccionada();
+        if (seleccionada != null) {
+            mostrarDatos(seleccionada);
+        }
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
     private void HorariotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorariotxtActionPerformed
@@ -367,8 +382,13 @@ public class Clases extends javax.swing.JInternalFrame implements IVista {
         return JOptionPane.showInputDialog(this, msg, titulo, JOptionPane.QUESTION_MESSAGE);
     }
 
+    
     @Override
-    public void mostrarDatos(Object entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mostrarDatos(Clase entidad) {
+        IDtxt.setText(String.valueOf(entidad.getId()));
+        Tipotxt.setText(entidad.getTipo());
+        Horariotxt.setText(entidad.getHorario());
+        Capacidadtxt.setText(String.valueOf(entidad.getCapacidadMaxima()));
+        IDentrenadortxt.setText(String.valueOf(entidad.getIdEntrenador()));
     }
 }

@@ -204,6 +204,7 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista<Usuar
         } catch (Exception ex) {
             this.mostrarError(ex.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void EliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBtnActionPerformed
@@ -225,6 +226,7 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista<Usuar
         } catch (Exception ex) {
             this.mostrarError(ex.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
@@ -266,6 +268,7 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista<Usuar
         } catch (Exception ex) {
             this.mostrarError(ex.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void ContrasenatxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContrasenatxtActionPerformed

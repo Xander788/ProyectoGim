@@ -139,7 +139,6 @@ public class ClienteDAO implements IClienteDAO {
                         rs.getString("contactos"),
                         tipo
                 ));
-                System.out.println(lista);
             }
         } catch (SQLException ex) {
             System.out.println("Error obtener clientes: " + ex);

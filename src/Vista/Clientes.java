@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author pxand
  */
-public class Clientes extends javax.swing.JInternalFrame implements IVista {
+public class Clientes extends javax.swing.JInternalFrame implements IVista<Cliente> {
     ControladorCliente ctrlCliente;
     /**
      * Creates new form 
@@ -240,16 +240,17 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
             String fechaVenStr = Vencimientotxt.getText().trim();
             TiposMembresia tipo = TiposMembresia.valueOf(ComboMembresia.getSelectedItem().toString().toUpperCase());
 
-            LocalDate fechaNacimiento = LocalDate.parse(fechaNacStr, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            LocalDate fechaNacimiento = LocalDate.parse(fechaNacStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             LocalDate fechaVencimiento = LocalDate.now();
 
             ctrlCliente.registrar(cedula, fechaNacimiento, fechaVencimiento, nombre, contacto, tipo);
             limpiar();
         } catch (DateTimeParseException e) {
-            this.mostrarError("Formato de fecha inválido. Usa yyyy/MM/dd");
+            this.mostrarError("Formato de fecha inválido. Usa yyyy-MM-dd");
         } catch (Exception e) {
             this.mostrarError(e.getMessage());
         }
+       limpiar();
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
@@ -262,7 +263,7 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
             String nombre = Nombretxt.getText().trim().isEmpty() ? null : Nombretxt.getText().trim();
             String contacto = Contactotxt.getText().trim().isEmpty() ? null : Contactotxt.getText().trim();
             LocalDate fechaNac = Nacimientotxt.getText().trim().isEmpty() ? null : 
-                    LocalDate.parse(Nacimientotxt.getText().trim(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+                    LocalDate.parse(Nacimientotxt.getText().trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             LocalDate fechaVen = LocalDate.now();
             TiposMembresia tipo = ComboMembresia.getSelectedIndex() == 0 ? null : 
                     TiposMembresia.valueOf(ComboMembresia.getSelectedItem().toString().toUpperCase());
@@ -270,10 +271,11 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
             ctrlCliente.actualizar(cedula, fechaNac, fechaVen, nombre, contacto, tipo);
             this.mostrarMensaje("Cliente modificado correctamente", "Éxito");
         } catch (DateTimeParseException e) {
-            this.mostrarError("Formato de fecha inválido. Usa yyyy/MM/dd");
+            this.mostrarError("Formato de fecha inválido. Usa yyyy-MM-dd");
         } catch (Exception e) {
             this.mostrarError(e.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_ModificarBtnActionPerformed
 
     private void EliminarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarBtnActionPerformed
@@ -290,10 +292,22 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
         } catch (Exception e) {
             this.mostrarError(e.getMessage());
         }
+        limpiar();
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        
+        BusquedaCliente dialog = new BusquedaCliente(null, true);
+        try {
+            dialog.setControlador(ctrlCliente);
+        } catch (Exception ex) {
+            System.getLogger(Clientes.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        dialog.setVisible(true);
+
+        Cliente seleccionado = dialog.getClienteSeleccionado();
+        if (seleccionado != null) {
+            mostrarDatos(seleccionado);
+        } 
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
     private void NombretxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombretxtActionPerformed
@@ -366,10 +380,6 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
         IVista.super.deshabilitarCampos(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
-    @Override
-    public void mostrarDatos(Object entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public boolean confirmar(String msg, String titulo) {
@@ -389,6 +399,16 @@ public class Clientes extends javax.swing.JInternalFrame implements IVista {
     @Override
     public String solicitar(String msg, String titulo) {
         return JOptionPane.showInputDialog(this, msg, titulo, JOptionPane.QUESTION_MESSAGE);
+    }
+
+    @Override
+    public void mostrarDatos(Cliente entidad) {
+        Cedulatxt.setText(entidad.getCedula());
+        Nombretxt.setText(entidad.getNombre());
+        Contactotxt.setText(entidad.getContactos());
+        Nacimientotxt.setText(String.valueOf(entidad.getFechaNacimientos()));
+        Vencimientotxt.setText(String.valueOf(entidad.getFechaVencimiento()));
+        ComboMembresia.setSelectedIndex(0);
     }
     
 }

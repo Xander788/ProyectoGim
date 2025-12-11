@@ -87,7 +87,7 @@ public class ControladorCliente implements IVista{
 
     }
     
-    private List<Cliente> obtenerTodos() throws Exception{
+    public List<Cliente> obtenerTodos() throws Exception{
         return servicio.obtenerTodos();
         
     }
