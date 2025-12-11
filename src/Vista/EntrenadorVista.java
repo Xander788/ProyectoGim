@@ -263,7 +263,18 @@ public class EntrenadorVista extends javax.swing.JInternalFrame implements IVist
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        // TODO add your handling code here:
+        BusquedaEntrenador dialog = new BusquedaEntrenador(null, true);
+        try {
+            dialog.setControlador(controlador);
+        } catch (Exception ex) {
+            System.getLogger(EntrenadorVista.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        dialog.setVisible(true);
+
+        Entrenador seleccionado = dialog.getEntrenadorSeleccionado();
+        if (seleccionado != null) {
+            mostrarDatos(seleccionado);
+        }
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
 
@@ -321,6 +332,9 @@ public class EntrenadorVista extends javax.swing.JInternalFrame implements IVist
 
     @Override
     public void mostrarDatos(Entrenador entrenador) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        IDtxt.setText(String.valueOf(entrenador.getId()));
+        Nombretxt.setText(entrenador.getNombre());
+        Contactotxt.setText(entrenador.getContacto());
+        Especialidadtxt.setText(entrenador.getEspecialidad());
     }
 }

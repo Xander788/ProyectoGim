@@ -86,7 +86,7 @@ public class ControladorEntrenador implements IVista{
         return false;
     }
     
-    private Entrenador buscarPorId(int id) throws Exception{
+    public Entrenador buscarPorId(int id) throws Exception{
         try {
             String stid = String.valueOf(id);
             if (stid.isEmpty()) {
@@ -110,11 +110,11 @@ public class ControladorEntrenador implements IVista{
         return null;
     }
     
-    private List<Entrenador> obtenerTodos() throws Exception{
+    public List<Entrenador> obtenerTodos() throws Exception{
         return servicio.obtenerTodos();
     }
     
-    private List<Entrenador> buscarPorEspecialidad(String especialidad) throws Exception{
+    public List<Entrenador> buscarPorEspecialidad(String especialidad) throws Exception{
         return servicio.buscarPorEspecialidad(especialidad);
     }
     

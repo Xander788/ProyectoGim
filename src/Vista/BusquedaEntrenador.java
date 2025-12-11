@@ -4,10 +4,8 @@
  */
 package Vista;
 
-import Controlador.ControladorPago;
-import DTO.PagoDTO;
-import Modelo.Pago;
-import java.time.format.DateTimeFormatter;
+import Controlador.ControladorEntrenador;
+import Modelo.Entrenador;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,30 +15,28 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author pxand
  */
-public class BusquedaPagos extends javax.swing.JDialog {
-    private ControladorPago controlador;
-    private Pago pagoseleccionado;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BusquedaPagos.class.getName());
-    
+public class BusquedaEntrenador extends javax.swing.JDialog {
+    private ControladorEntrenador controlador;
+    private Entrenador entrenadorSeleccionado = null;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BusquedaEntrenador.class.getName());
+
     /**
-     * Creates new form BusquedaPagos
+     * Creates new form BusquedaEntrenador
      */
-    public BusquedaPagos(java.awt.Frame parent, boolean modal) {
+    public BusquedaEntrenador(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
     }
     
-    public void setControlador(ControladorPago controlador) throws Exception {
+    public void setControlador(ControladorEntrenador controlador) throws Exception {
         this.controlador = controlador;
-        CargarTabla(controlador.listarTodos());
+        cargarTabla(controlador.obtenerTodos());
     }
 
-    
-    public Pago getPagoSeleccionado() {
-        return pagoseleccionado;
+    public Entrenador getEntrenadorSeleccionado() {
+        return entrenadorSeleccionado;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,44 +47,17 @@ public class BusquedaPagos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         buscarBtn = new javax.swing.JButton();
         IDpagotxt = new javax.swing.JTextField();
         aceptarBtn = new javax.swing.JButton();
         reiniciarBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID Pago", "ID cliente", "Fecha Pago", "Subtotal", "Impuesto", "Total"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
 
         buscarBtn.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
         buscarBtn.setText("Buscar");
@@ -123,7 +92,42 @@ public class BusquedaPagos extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ID Pago");
+        jLabel1.setText("Buscador");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID Entrenador", "Nombre", "Contacto", "Especialidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jComboBox1.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ESPECIALIDAD", "ID" }));
+
+        jLabel2.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Tipo De Busqueda");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,26 +136,35 @@ public class BusquedaPagos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IDpagotxt)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                            .addComponent(IDpagotxt, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(188, 188, 188)
                 .addComponent(buscarBtn)
                 .addGap(18, 18, 18)
                 .addComponent(aceptarBtn)
                 .addGap(18, 18, 18)
                 .addComponent(reiniciarBtn)
-                .addGap(123, 123, 123))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(IDpagotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(IDpagotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buscarBtn)
@@ -164,43 +177,25 @@ public class BusquedaPagos extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void IDpagotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDpagotxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IDpagotxtActionPerformed
-
-    private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
-        int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona un pago de la tabla", 
-                "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        int idPago = (Integer) jTable1.getValueAt(fila, 0);
-        try {
-            pagoseleccionado = controlador.buscarPorId(idPago);
-            dispose();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al seleccionar pago", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_aceptarBtnActionPerformed
-
-    private void reiniciarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarBtnActionPerformed
-        try {
-            CargarTabla(controlador.listarTodos());
-        } catch (Exception ex) {
-            System.getLogger(BusquedaPagos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-    }//GEN-LAST:event_reiniciarBtnActionPerformed
-
     private void buscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBtnActionPerformed
+        if (controlador == null) return;
         try {
+            
+            if (jComboBox1.getSelectedItem().equals("ESPECIALIDAD")) {
+                String texto = IDpagotxt.getText().trim();
+                List<Entrenador> lista = texto.isEmpty()
+                ? controlador.obtenerTodos()
+                : controlador.buscarPorEspecialidad(texto);
+            cargarTabla(lista);
+            }
+            if (jComboBox1.getSelectedItem().equals("ID")) {
+                try {
             String texto = IDpagotxt.getText().trim();
-            Pago pago;
+            Entrenador pago;
             pago = controlador.buscarPorId(Integer.valueOf(texto));
-            List<Pago> lista = new ArrayList<>();
+            List<Entrenador> lista = new ArrayList<>();
             lista.add(pago);
-            CargarTabla(lista);
+            cargarTabla(lista);
 
             if (lista.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No se encontraron pagos", "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -210,32 +205,40 @@ public class BusquedaPagos extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_buscarBtnActionPerformed
 
-    public void CargarTabla(List<Pago> pagos) throws Exception{
-       DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
+    private void IDpagotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDpagotxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IDpagotxtActionPerformed
 
-        if (pagos == null || pagos.isEmpty()) {
+    private void aceptarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarBtnActionPerformed
+        int fila = jTable1.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un entrenador");
             return;
         }
-
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        for (Pago p : pagos) {
-            model.addRow(new Object[]{
-                p.getId(),
-                p.getIdCliente(),
-                p.getFecha().format(fmt),
-                String.format("%.2f", p.getSubtotal()),
-                String.format("%.2f", p.getImpuesto()),
-                String.format("%.2f", p.getTotal())
-            });
+        int id = (Integer) jTable1.getValueAt(fila, 0);
+        try {
+            entrenadorSeleccionado = controlador.buscarPorId(id);
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al seleccionar");
         }
-    }
-    
-    
-    
+    }//GEN-LAST:event_aceptarBtnActionPerformed
+
+    private void reiniciarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarBtnActionPerformed
+        try {
+            cargarTabla(controlador.obtenerTodos());
+        } catch (Exception ex) {
+            System.getLogger(BusquedaPagos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_reiniciarBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -261,7 +264,7 @@ public class BusquedaPagos extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                BusquedaPagos dialog = new BusquedaPagos(new javax.swing.JFrame(), true);
+                BusquedaEntrenador dialog = new BusquedaEntrenador(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -272,16 +275,29 @@ public class BusquedaPagos extends javax.swing.JDialog {
             }
         });
     }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IDpagotxt;
     private javax.swing.JButton aceptarBtn;
     private javax.swing.JButton buscarBtn;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton reiniciarBtn;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla(List<Entrenador> lista) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (Entrenador e : lista) {
+            model.addRow(new Object[]{
+                e.getId(),
+                e.getNombre(),
+                e.getContacto(),
+                e.getEspecialidad()
+            });
+        }
+    }
 }
