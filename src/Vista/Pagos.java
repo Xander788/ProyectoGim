@@ -232,6 +232,7 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista<Pago> {
 
     private void AnadirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnadirBtnActionPerformed
         if (IDclientetxt.getText().isBlank()||Subtotaltxt.getText().isBlank()) {
+            this.mostrarError("Rellene todos los campos");
             return;
         }
         
@@ -242,7 +243,6 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista<Pago> {
         try {
             ctrlPago.registrarPago(idcliente,subtotal,formatoFactura);
         } catch (Exception ex) {
-            this.mostrarError("Rellene todos los campos");
             System.getLogger(Pagos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         limpiar();
