@@ -75,6 +75,7 @@ public class VistaGim extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(0, 102, 204));
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         setTitle("VistaGim");
