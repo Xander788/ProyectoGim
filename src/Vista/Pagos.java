@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author pxand
  */
-public class Pagos extends javax.swing.JInternalFrame implements IVista {
+public class Pagos extends javax.swing.JInternalFrame implements IVista<Pago> {
     ControladorPago ctrlPago;
     /**
      * Creates new form Pagos
@@ -22,6 +22,7 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista {
         initComponents();
         this.ctrlPago = new ControladorPago(servicio,this);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -237,13 +238,26 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista {
             ctrlPago.registrarPago(idcliente,subtotal,formatoFactura);
         } catch (Exception ex) {
             System.getLogger(Pagos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.out.println("diai si");
         }
         
         
     }//GEN-LAST:event_AnadirBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        // TODO add your handling code here:
+        BusquedaPagos frm = new BusquedaPagos(null,true);
+        try {
+            frm.setControlador(ctrlPago);
+        } catch (Exception ex) {
+            System.getLogger(Pagos.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        frm.setVisible(true);
+        Pago seleccionado = frm.getPagoSeleccionado();
+        if (!(seleccionado == null)) {
+           mostrarDatos(seleccionado); 
+        }
+        
+        
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -306,8 +320,14 @@ public class Pagos extends javax.swing.JInternalFrame implements IVista {
         return JOptionPane.showInputDialog(this, msg, titulo, JOptionPane.QUESTION_MESSAGE);
     }
 
+
     @Override
-    public void mostrarDatos(Object entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void mostrarDatos(Pago entidad) {
+        IDtxt.setText(String.valueOf(entidad.getId()));
+        IDclientetxt.setText(String.valueOf(entidad.getIdCliente()));
+        Fechatxt.setText(String.valueOf(entidad.getFecha()));
+        Subtotaltxt.setText(String.valueOf(entidad.getSubtotal()));
+        Impuestotxt.setText(String.valueOf(entidad.getImpuesto()));
+        Totaltxt.setText(String.valueOf(entidad.getTotal()));
     }
 }

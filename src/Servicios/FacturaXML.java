@@ -18,7 +18,7 @@ public class FacturaXML {
         String xml = """
         <factura>
             <id>%d</id>
-            <cliente>%d</cliente>
+            <cliente>%s</cliente>
             <fecha>%s</fecha>
             <subtotal>%.2f</subtotal>
             <impuesto>%.2f</impuesto>

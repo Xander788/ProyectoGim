@@ -36,21 +36,21 @@ public class ControladorPago implements IVista{
         
     }
     
-    private List<Pago> listarPorCliente(){
+    private List<Pago> listarPorCliente(String idCliente) throws Exception{
         
-        return null;
+        return servicio.listarPorCliente(idCliente);
         
     }    
             
-    private List<Pago> listarTodos(){
+    public List<Pago> listarTodos() throws Exception{
         
-        return null;
+        return servicio.listarTodos();
         
     }      
     
-    private Pago buscarPorId(){
+    public Pago buscarPorId(int id) throws Exception{
         
-        return null;
+        return servicio.buscarPorId(id);
         
     }
     

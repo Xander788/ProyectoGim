@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Jorge
  */
 public class Pago {
-     private int id;
+    private int id;
     private String idCliente;
     private LocalDate fecha;
     private double subtotal;
