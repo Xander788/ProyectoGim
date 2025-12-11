@@ -228,7 +228,18 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista<Usuar
     }//GEN-LAST:event_EliminarBtnActionPerformed
 
     private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
-        // TODO add your handling code here:
+        BusquedaUsuarios dialog = new BusquedaUsuarios(null, true);
+        try {
+            dialog.setControlador(ctrlUsuario);
+        } catch (Exception ex) {
+            System.getLogger(Usuarios.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        dialog.setVisible(true);
+
+        Usuario seleccionado = dialog.getUsuarioSeleccionado();
+        if (seleccionado != null) {
+            mostrarDatos(seleccionado);
+        }
     }//GEN-LAST:event_BuscarBtnActionPerformed
 
     private void ModificarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBtnActionPerformed
@@ -249,7 +260,7 @@ public class Usuarios extends javax.swing.JInternalFrame implements IVista<Usuar
             Roles nuevorol =  Roles.valueOf(RolesCombo.getSelectedItem().toString().toUpperCase());
 
             ctrlUsuario.actualizar(id, nuevoUsuario, nuevaContra, nuevorol);
-            this.mostrarMensaje("Usuario modificado correctamente", "Éxito");
+            limpiar();
         } catch (NumberFormatException ex) {
             this.mostrarError("ID inválido");
         } catch (Exception ex) {
