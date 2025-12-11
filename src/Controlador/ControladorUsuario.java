@@ -28,20 +28,21 @@ public class ControladorUsuario implements IVista{
   
     }
     
-    public void buscar(int id){
+    public Usuario buscar(int id){
         try {
             Usuario usuario = servicio.obtenerTodos().stream()
                     .filter(u -> u.getId() == id)
                     .findFirst()
                     .orElse(null);
             if (usuario != null) {
-                vista.mostrarDatos(usuario);
+                return usuario;
             } else {
                 vista.mostrarError("Usuario no encontrado");
             }
         } catch (Exception ex) {
             vista.mostrarError(ex.getMessage());
         }
+        return null;
     }
     
     public void actualizar(int id, String nuevoNombre, String nuevaContrasena, Roles nuevoRol){
