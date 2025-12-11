@@ -144,6 +144,8 @@ public class Login extends javax.swing.JDialog implements IVista {
         if (ctrlUsuario.login(usuario, contrasena)) {
             loginExitoso = true;
             mostrarMensaje("¡Bienvenido, " + usuario + "!", "Login exitoso");
+            Usuariotxt.setText("");
+            Contrasenatxt.setText("");
             this.setVisible(false);
         } else {
             mostrarError("Usuario o contraseña incorrectos");
