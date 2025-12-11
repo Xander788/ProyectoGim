@@ -247,6 +247,9 @@ public class Clases extends javax.swing.JInternalFrame implements IVista<Clase> 
             String capacidadStr = Capacidadtxt.getText().trim();
             int capacidad = Integer.parseInt(capacidadStr);
             int idEntrenador = Integer.parseInt(IDentrenadortxt.getText().trim());
+            if (IDtxt.getText().isBlank()||tipo.isBlank()|| horario.isBlank()||capacidadStr.isBlank()||IDentrenadortxt.getText().isBlank()) {
+                return;
+            }
             ctrlClase.registrar(id, tipo, horario, capacidad, idEntrenador);
             limpiar();
         } catch (NumberFormatException e) {
